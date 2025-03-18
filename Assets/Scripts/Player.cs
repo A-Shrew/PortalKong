@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
 
         inputManager.OnMove.AddListener(Move);
         inputManager.OnSpacePressed.AddListener(Jump);
-        inputManager.OnMousePressed.AddListener(Shoot);
+        inputManager.OnMouseLeftPressed.AddListener(ShootPortal1);
+        inputManager.OnMouseRightPressed.AddListener(ShootPortal2);
     }
 
     void FixedUpdate()
@@ -53,10 +54,28 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    private void Shoot()
+    private void ShootPortal1()
+    {
+
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity))
+        {
+            GameObject target = hit.collider.gameObject;
+            if (target.CompareTag("PortalWall"))
+            {
+
+            }
+        }
+    }
+
+    private void ShootPortal2()
     {
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity))
         {
+            GameObject target = hit.collider.gameObject;
+            if (target.CompareTag("PortalWall"))
+            {
+
+            }
         }
     }
 }

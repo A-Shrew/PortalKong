@@ -6,7 +6,8 @@ using Unity.VisualScripting;
 public class InputManager : MonoBehaviour
 {
     public UnityEvent OnSpacePressed = new();
-    public UnityEvent OnMousePressed = new();
+    public UnityEvent OnMouseLeftPressed = new();
+    public UnityEvent OnMouseRightPressed = new();
     public UnityEvent<Vector2> OnMove = new();
     //public UnityEvent OnResetPressed = new UnityEvent();
 
@@ -44,7 +45,11 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            OnMousePressed?.Invoke();
+            OnMouseLeftPressed?.Invoke();
+        }
+        if (Input.GetMouseButton(1))
+        {
+            OnMouseRightPressed?.Invoke();
         }
     }
 }
