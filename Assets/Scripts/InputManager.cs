@@ -9,6 +9,8 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnMouseLeftPressed = new();
     public UnityEvent OnMouseRightPressed = new();
     public UnityEvent<Vector2> OnMove = new();
+    public UnityEvent<Vector2> OnLook = new();
+
     //public UnityEvent OnResetPressed = new UnityEvent();
 
     void Update()
@@ -38,10 +40,17 @@ public class InputManager : MonoBehaviour
 
         OnMove?.Invoke(input);
 
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    OnResetPressed?.Invoke();
-        //}
+        Vector2 look = Vector2.zero;
+        if (Input.GetAxisRaw("Mouse X") != 0)
+        {
+            look.x = Input.GetAxisRaw("Mouse X");
+        }
+        if (Input.GetAxisRaw("Mouse Y") != 0)
+        {
+            look.y = Input.GetAxisRaw("Mouse Y");
+        }
+
+        OnLook?.Invoke(look);
 
         if (Input.GetMouseButton(0))
         {
