@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
+            rb.AddForce(jump * Vector3.up, ForceMode.VelocityChange);
         }
     }
 
