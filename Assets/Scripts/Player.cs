@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Camera cam;
+    [SerializeField] private float gravity;
     [SerializeField] private float speed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jump;
@@ -26,8 +27,15 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z); 
-        Debug.DrawRay(cam.transform.position, cam.transform.forward*5f,Color.yellow);
-        rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed);
+        Debug.DrawRay(transform.position, cam.transform.forward*10f,Color.yellow);
+
+        Vector3 clampedSpeed = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed);
+        rb.linearVelocity = new Vector3(clampedSpeed.x,rb.linearVelocity.y,clampedSpeed.z);
+
+        if (!IsGrounded())
+        {
+            rb.AddForce(gravity * -transform.up, ForceMode.Acceleration);
+        }
     }
 
     // Update is called once per frame
@@ -41,7 +49,6 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
-            rb.AddForce(jump * Vector3.up, ForceMode.Impulse);
         }
     }
 
@@ -60,10 +67,7 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity))
         {
             GameObject target = hit.collider.gameObject;
-            if (target.CompareTag("PortalWall"))
-            {
-
-            }
+         
         }
     }
 
@@ -72,10 +76,6 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity))
         {
             GameObject target = hit.collider.gameObject;
-            if (target.CompareTag("PortalWall"))
-            {
-
-            }
         }
     }
 }
