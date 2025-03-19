@@ -3,31 +3,35 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private Camera cam;
+    [SerializeField] private Camera cam
+        ;
     [SerializeField] private float gravity;
     [SerializeField] private float speed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jump;
 
-    private float jumpRay;
     private Rigidbody rb;
+    private float jumpRay;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         jumpRay = transform.localScale.y + 0.05f;
-
         inputManager.OnMove.AddListener(Move);
         inputManager.OnSpacePressed.AddListener(Jump);
         inputManager.OnMouseLeftPressed.AddListener(ShootPortal1);
         inputManager.OnMouseRightPressed.AddListener(ShootPortal2);
     }
+    void LateUpdate()
+    {
+        Debug.DrawRay(transform.position, cam.transform.forward * 10f, Color.yellow);
+    }
 
     void FixedUpdate()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z); 
-        Debug.DrawRay(transform.position, cam.transform.forward*10f,Color.yellow);
+        Quaternion lookRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        transform.rotation = lookRotation;
 
         Vector3 clampedSpeed = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed);
         rb.linearVelocity = new Vector3(clampedSpeed.x,rb.linearVelocity.y,clampedSpeed.z);
@@ -37,8 +41,7 @@ public class Player : MonoBehaviour
             rb.AddForce(gravity * -transform.up, ForceMode.Acceleration);
         }
     }
-
-    // Update is called once per frame
+ 
     private void Move(Vector2 direction)
     {
         Vector3 moveDirection = rb.rotation * new Vector3(direction.x,0f,direction.y);
@@ -64,11 +67,9 @@ public class Player : MonoBehaviour
 
     private void ShootPortal1()
     {
-
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity))
         {
             GameObject target = hit.collider.gameObject;
-         
         }
     }
 

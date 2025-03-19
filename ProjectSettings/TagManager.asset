@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - PortalA
+  - PortalB
   layers:
   - Default
   - TransparentFX

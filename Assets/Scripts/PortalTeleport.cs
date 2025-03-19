@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PortalTeleport : MonoBehaviour
 {
-    public Camera camera;
-    [SerializeField] private Transform portalLocation;
     [SerializeField] private Transform portalSpawnLocation;
     private bool canTeleport;
 
@@ -24,7 +22,6 @@ public class PortalTeleport : MonoBehaviour
                 hit.transform.position = portalSpawnLocation.position;
             }
         }
-
     }
 
     private void OnCollisionLeave(Collision collision)
