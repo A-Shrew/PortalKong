@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8b8010b47cfe641bd7ce39fecd8885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalManager: {fileID: 0}
   inputManager: {fileID: 8138874392673867038}
   mainCam: {fileID: 0}
   speed: 4
@@ -253,7 +254,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 0

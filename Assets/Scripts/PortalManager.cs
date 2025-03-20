@@ -37,7 +37,8 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[1]);
             }
-            portals[0] = Instantiate(portalA, location.position, Quaternion.Euler(location.right * -90f));
+            Quaternion rotation = location.rotation * Quaternion.Euler(0f, 90f, 0f);
+            portals[0] = Instantiate(portalA, location.position, location.rotation);
         }
         else
         {
@@ -45,7 +46,8 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[1]);
             }
-            portals[0] = Instantiate(portalA, location.position, Quaternion.Euler(location.right * -90f));
+            //Quaternion rotation = location.rotation * Quaternion.Euler(0f, , 0f);
+            portals[0] = Instantiate(portalA, location.position, location.rotation);
         }
     }
 
@@ -58,7 +60,8 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[0]);
             }
-            portals[1] = Instantiate(portalB, location.position, Quaternion.Euler(location.right * -90f));
+            Quaternion rotation = location.rotation * Quaternion.Euler(0f, 90f, 0f);
+            portals[1] = Instantiate(portalB, location.position, location.rotation);
         }
         else
         {
@@ -66,7 +69,9 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[0]);
             }
-            portals[1] = Instantiate(portalB, location.position, Quaternion.Euler(location.right * -90f));
+           
+            Quaternion rotation = location.rotation * Quaternion.Euler(0f, 90f, 0f);
+            portals[1] = Instantiate(portalB, location.position, location.rotation);
         }
     }
 
@@ -97,7 +102,6 @@ public class PortalManager : MonoBehaviour
 
             portalTeleA.targetPortal = portals[1].GetComponent<Transform>();
             portalTeleB.targetPortal = portals[0].GetComponent<Transform>();
-
         }
     }
 }

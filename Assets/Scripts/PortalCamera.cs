@@ -6,7 +6,12 @@ public class PortalCamera : MonoBehaviour
     public Transform thisPortal;
     public Transform targetPortal;
     public Transform player;
+    private Camera playerCamera;
 
+    void Start()
+    {
+        playerCamera = Camera.main;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +22,13 @@ public class PortalCamera : MonoBehaviour
 
             float angle = Quaternion.Angle(thisPortal.rotation, targetPortal.rotation);
             Quaternion angleRotation = Quaternion.AngleAxis(angle, Vector3.up);
-            Vector3 direction = angleRotation * -player.transform.forward;
+
+            float verticalAngle = playerCamera.transform.eulerAngles.x;
+            Quaternion verticalRotation = Quaternion.AngleAxis(-verticalAngle, player.transform.right);
+
+            Quaternion combinedRotation = angleRotation * verticalRotation;
+
+            Vector3 direction = combinedRotation * -player.transform.forward;
             transform.rotation = Quaternion.LookRotation(direction);
         }
        
