@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
-
+    }
+    
+    public void LoadTextures()
+    {
         if(cameraB.targetTexture != null)
         {
             cameraB.targetTexture.Release();

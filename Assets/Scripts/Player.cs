@@ -4,6 +4,7 @@ using UnityEngine.Windows;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private PortalManager portalManager;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Camera mainCam;
     [SerializeField] private float speed;
@@ -31,13 +32,11 @@ public class Player : MonoBehaviour
         inputManager.OnMove.AddListener(Move);
         inputManager.OnLook.AddListener(Look);
         inputManager.OnSpacePressed.AddListener(Jump);
+        inputManager.OnMouseLeftPressed.AddListener(PortalA);
+        inputManager.OnMouseRightPressed.AddListener(PortalB);
 
         smoothX = horizontalLook;
         smoothY = verticalLook;
-    }
-    void LateUpdate()
-    {
-        
     }
     void FixedUpdate()
     {
@@ -82,5 +81,31 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void PortalA()
+    {
+        if(Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, Mathf.Infinity))
+        {
+            GameObject target = hit.collider.gameObject;
+            if (target.CompareTag("PortalWall"))
+            {
+                Debug.Log("Hit Portal Wall");
+                portalManager.SpawnPortalA(target.transform);
+            }
+        }
+    }
+
+    private void PortalB()
+    {
+        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, Mathf.Infinity))
+        {
+            GameObject target = hit.collider.gameObject;
+            if (target.CompareTag("PortalWall"))
+            {
+                Debug.Log("Hit Portal Wall");
+                portalManager.SpawnPortalB(target.transform);
+            }
+        }
     }
 }
