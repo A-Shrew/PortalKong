@@ -1,16 +1,11 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PortalCamera : MonoBehaviour
 {
     [SerializeField] private Transform thisPortal;
     [SerializeField] private Transform targetPortal;
     [SerializeField] private Transform player;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
