@@ -1,25 +1,23 @@
 
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 public class PortalManager : MonoBehaviour
 {
     public GameManager gameManager;
     public GameObject player;
-    public GameObject portalA;
-    public GameObject portalB;
-    public GameObject[] portals = new GameObject[2];
+    public GameObject prefabA;
+    public GameObject prefabB;
 
-    public bool isConnected;
+    private Portal portalA;
+    private Portal portalB;
+    private GameObject[] portals = new GameObject[2];
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         portals[0] = null;
         portals[1] = null;
-        isConnected = false;
     }
 
     void Update()
@@ -37,8 +35,7 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[1]);
             }
-            Quaternion rotation = location.rotation * Quaternion.Euler(0f, 90f, 0f);
-            portals[0] = Instantiate(portalA, location.position, location.rotation);
+            portals[0] = Instantiate(prefabA, location.position, location.rotation);
         }
         else
         {
@@ -46,9 +43,9 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[1]);
             }
-            //Quaternion rotation = location.rotation * Quaternion.Euler(0f, , 0f);
-            portals[0] = Instantiate(portalA, location.position, location.rotation);
+            portals[0] = Instantiate(prefabA, location.position, location.rotation);
         }
+        portalA = portals[0].GetComponent<Portal>();
     }
 
     public void SpawnPortalB(Transform location){
@@ -60,8 +57,7 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[0]);
             }
-            Quaternion rotation = location.rotation * Quaternion.Euler(0f, 90f, 0f);
-            portals[1] = Instantiate(portalB, location.position, location.rotation);
+            portals[1] = Instantiate(prefabB, location.position, location.rotation);
         }
         else
         {
@@ -69,39 +65,33 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[0]);
             }
-           
-            Quaternion rotation = location.rotation * Quaternion.Euler(0f, 90f, 0f);
-            portals[1] = Instantiate(portalB, location.position, location.rotation);
+            portals[1] = Instantiate(prefabB, location.position, location.rotation);
         }
+        portalB = portals[1].GetComponent<Portal>();
     }
 
     void PortalConnection()
     {
         if (portals[0] != null && portals[1] != null)
         {
-            Debug.Log("TWO PORTALS");
-            PortalCamera portalCamA = portals[0].GetComponentInChildren<PortalCamera>();
-            PortalTeleport portalTeleA = portals[0].GetComponentInChildren<PortalTeleport>();
-
-            PortalCamera portalCamB = portals[1].GetComponentInChildren<PortalCamera>();
-            PortalTeleport portalTeleB = portals[1].GetComponentInChildren<PortalTeleport>();
-
             gameManager.cameraA = portals[0].GetComponentInChildren<Camera>();
             gameManager.cameraB = portals[1].GetComponentInChildren<Camera>();
-
             gameManager.LoadTextures();
 
-            portalCamA.player = player.GetComponent<Transform>();
-            portalCamB.player = player.GetComponent<Transform>();
+            portalA.playerScript = player.GetComponent<Player>();
+            portalB.playerScript = player.GetComponent<Player>();
 
-            portalCamA.targetPortal = portals[1].GetComponent<Transform>();
-            portalCamB.targetPortal = portals[0].GetComponent<Transform>();
+            portalA.player = player.GetComponent<Transform>();
+            portalB.player = player.GetComponent<Transform>();
 
-            portalTeleA.player = player.GetComponent<Transform>();
-            portalTeleB.player = player.GetComponent<Transform>();
+            portalA.playerCamera = player.GetComponentInChildren<Camera>().transform;
+            portalB.playerCamera = player.GetComponentInChildren<Camera>().transform;
 
-            portalTeleA.targetPortal = portals[1].GetComponent<Transform>();
-            portalTeleB.targetPortal = portals[0].GetComponent<Transform>();
+            portalA.targetPortal = portals[1].GetComponent<Transform>();
+            portalB.targetPortal = portals[0].GetComponent<Transform>();
+
+            portalA.targetPortalCamera = portals[1].GetComponentInChildren<Camera>().transform;
+            portalB.targetPortalCamera = portals[0].GetComponentInChildren<Camera>().transform;
         }
     }
 }
