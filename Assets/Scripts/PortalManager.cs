@@ -1,81 +1,100 @@
+
 using System;
 using UnityEngine;
 
 public class PortalManager : MonoBehaviour
 {
-    public Portal[] portals = new Portal[2];
-    public GameObject portalPrefabA;
-    public GameObject portalPrefabB;
-    private Camera portalCamera;
-    public Camera mainCamera;
+    public GameManager gameManager;
+    public GameObject player;
+    public GameObject prefabA;
+    public GameObject prefabB;
 
-    [Serializable]
-    public struct Portal
+    private Portal portalA;
+    private Portal portalB;
+    private GameObject[] portals = new GameObject[2];
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake()
     {
-        public Portal(GameObject portalObject,Transform portalDestination, int inceptionCount,bool isActive)
-        {
-            this.portalObject = portalObject;
-            this.portalDestination = portalDestination;
-            this.inceptionCount = inceptionCount;
-            this.isActive = isActive;
-        }
-        public GameObject portalObject;   
-        public Transform portalDestination;
-        public int inceptionCount;
-        public bool isActive;
+        portals[0] = null;
+        portals[1] = null;
     }
 
     void Update()
     {
-        UpdatePortals();
+        PortalConnection(); 
     }
 
-    void UpdatePortals()
+    public void SpawnPortalA(Transform location)
     {
-        if (!portals[0].isActive || !portals[1].isActive)
+        if (portals[0] != null)
         {
-            return;
+            Destroy(portals[0]);
+
+            if (portals[1] != null && portals[1].transform.position == location.position)
+            {
+                Destroy(portals[1]);
+            }
+            portals[0] = Instantiate(prefabA, location.position, location.rotation);
         }
         else
         {
-            portalCamera = portals[0].portalObject.GetComponent<Camera>();
-            for (int i = portals[0].inceptionCount - 1; i >= 0; --i)
+            if (portals[1] != null && portals[1].transform.position == location.position)
             {
-                 RenderPortal(portals[0].portalObject, portals[1].portalObject, portals[0].inceptionCount);
+                Destroy(portals[1]);
             }
-       
-            portalCamera = portals[1].portalObject.GetComponent<Camera>();
-            for (int i = portals[1].inceptionCount - 1; i >= 0; --i)
-            {
-                RenderPortal(portals[1].portalObject, portals[0].portalObject, portals[1].inceptionCount);
-            }
+            portals[0] = Instantiate(prefabA, location.position, location.rotation);
         }
+        portalA = portals[0].GetComponent<Portal>();
     }
 
-    void RenderPortal(GameObject inPortal, GameObject outPortal, int iteration)
-    {
-        Transform inTransform = inPortal.transform;
-        Transform outTransform = outPortal.transform;
-
-        Transform cameraTransform = portalCamera.transform;
-        cameraTransform.position = transform.position;
-        cameraTransform.rotation = transform.rotation;
-
-        for (int i = 0; i <= iteration; ++i)
+    public void SpawnPortalB(Transform location){
+        if (portals[1] != null)
         {
-            var relativePosition = inTransform.InverseTransformPoint(cameraTransform.position);
-            relativePosition = Quaternion.Euler(0f, 180f, 0f) * relativePosition;
-            cameraTransform.position = outTransform.TransformPoint(relativePosition);
+            Destroy(portals[1]);
 
-            Quaternion relativeRotation = Quaternion.Inverse(inTransform.rotation) * cameraTransform.rotation;
-            relativeRotation = Quaternion.Euler(0f, 180f, 0f) * relativeRotation;
-            cameraTransform.rotation = outTransform.rotation * relativeRotation;
+            if (portals[0] != null && portals[0].transform.position == location.position)
+            {
+                Destroy(portals[0]);
+            }
+            portals[1] = Instantiate(prefabB, location.position, location.rotation);
         }
+        else
+        {
+            if (portals[0] != null && portals[0].transform.position == location.position)
+            {
+                Destroy(portals[0]);
+            }
+            portals[1] = Instantiate(prefabB, location.position, location.rotation);
+        }
+        portalB = portals[1].GetComponent<Portal>();
+    }
 
-        Plane p = new Plane(-outTransform.forward, outTransform.position);
-        Vector4 clipPlaneWorldSpace = new Vector4(p.normal.x, p.normal.y, p.normal.z, p.distance);
-        Vector4 clipPlaneCameraSpace = Matrix4x4.Transpose(Matrix4x4.Inverse(portalCamera.worldToCameraMatrix)) * clipPlaneWorldSpace;
-        var newMatrix = mainCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
-        portalCamera.projectionMatrix = newMatrix;
+    void PortalConnection()
+    {
+        if (portals[0] != null && portals[1] != null)
+        {
+            gameManager.cameraA = portals[0].GetComponentInChildren<Camera>();
+            gameManager.cameraB = portals[1].GetComponentInChildren<Camera>();
+            gameManager.LoadTextures();
+
+            portalA.playerScript = player.GetComponent<Player>();
+            portalB.playerScript = player.GetComponent<Player>();
+
+            portalA.player = player.GetComponent<Transform>();
+            portalB.player = player.GetComponent<Transform>();
+
+            portalA.playerCamera = player.GetComponentInChildren<Camera>().transform;
+            portalB.playerCamera = player.GetComponentInChildren<Camera>().transform;
+
+            portalA.targetPortal = portals[1].GetComponent<Transform>();
+            portalB.targetPortal = portals[0].GetComponent<Transform>();
+
+            portalA.targetPortalSpawn = portals[1].GetComponent<Transform>().GetChild(0).transform;
+            portalB.targetPortalSpawn = portals[0].GetComponent<Transform>().GetChild(0).transform;
+
+            portalA.targetPortalCamera = portals[1].GetComponentInChildren<Camera>().transform;
+            portalB.targetPortalCamera = portals[0].GetComponentInChildren<Camera>().transform;
+        }
     }
 }
