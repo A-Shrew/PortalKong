@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &940934823489147469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7841512833316745509}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7841512833316745509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940934823489147469}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 0.625, y: 50, z: 0.33333334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5699374324054856364}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3332229183986951215
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +278,7 @@ Transform:
   m_LocalScale: {x: 1.6, y: 0.02, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7841512833316745509}
   - {fileID: 4587903454659025773}
   - {fileID: 7989617235421977495}
   - {fileID: 7295790238575757500}
@@ -321,6 +353,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerCamera: {fileID: 0}
   targetPortal: {fileID: 0}
+  targetPortalSpawn: {fileID: 0}
   targetPortalCamera: {fileID: 0}
   portalCamera: {fileID: 0}
   hasAllVariables: 0

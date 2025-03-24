@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
     public void SetVelocity()
     {
         rb.linearVelocity = Vector3.zero;
+        rb.AddForce(speed * transform.forward, ForceMode.Impulse);
     }
 
     private void Jump()
