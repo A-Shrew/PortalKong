@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        InitiateInputs();
+        AddInputs();
         rb = GetComponent<Rigidbody>();
         jumpRay = transform.localScale.y + 0.05f;
         rotationSmoothTime = 0.1f;
@@ -55,12 +55,14 @@ public class Player : MonoBehaviour
         AuxiliaryMovement();
     }
  
+    // Moves the player by a constant force with mass in a normalized direction given by wasd input
     private void Move(Vector2 direction)
     {
         Vector3 moveDirection = rb.rotation * new Vector3(direction.x,0f,direction.y).normalized;
         rb.AddForce(speed * moveDirection, ForceMode.Impulse);
     }
 
+    // Changes camera and player rotation from mouse movements
     private void Look(Vector2 lookInput)
     {
         horizontalLook += lookInput.x * mouseSense;
@@ -73,6 +75,7 @@ public class Player : MonoBehaviour
         mainCam.transform.localEulerAngles = Vector3.right * verticalSmoothing;
     }
 
+    // Moves the player by a constant force ignoring its mass upwards if grounded or if the player has a double jump
     private void Jump()
     {
         if (IsGrounded())
@@ -86,17 +89,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Moves the player by a constant force ignoring its mass in a normalized direction given by wasd input
     private void Dash(Vector2 direction)
     {
         if(canDash)
         {
-            Vector3 moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y);
+            Vector3 moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y).normalized;
             rb.AddForce(dash * moveDirection, ForceMode.VelocityChange);
             rb.AddForce(dash / 10 * Vector3.up, ForceMode.VelocityChange);
             StartCoroutine(DashCooldown());
         }
     }
 
+    // Function to start a timer for when a player is able to dash 
     private IEnumerator DashCooldown()
     {
         canDash = false;
@@ -106,6 +111,7 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
+    // Extra physics calculations for player movement
     private void AuxiliaryMovement()
     {
         // Apply Drag
@@ -118,6 +124,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Boolean using raycast to determing whether or not the player is touching the ground
     private bool IsGrounded()
     {
         if (Physics.Raycast(transform.position, Vector3.down, jumpRay))
@@ -128,7 +135,8 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    private void InitiateInputs()
+    // Adds the player input listeners from the InputManager script
+    private void AddInputs()
     {
         inputManager.OnMove.AddListener(Move);
         inputManager.OnLook.AddListener(Look);
@@ -138,6 +146,7 @@ public class Player : MonoBehaviour
         inputManager.OnMouseRightPressed.AddListener(ShootPortalB);
     }
 
+    // Shoots the A portal and calls the PortalManager script SpawnPortalA function if it hits a portal wall
     private void ShootPortalA()
     {
         if(Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, Mathf.Infinity))
@@ -150,6 +159,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Shoots the B portal and calls the PortalManager script SpawnPortalB function if it hits a portal wall
     private void ShootPortalB()
     {
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, Mathf.Infinity))
@@ -162,6 +172,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Sets the player rotation from a given quaternion
     public void SetRotation(Quaternion newRotation)
     {
         Vector3 targetEuler = newRotation.eulerAngles;
@@ -173,6 +184,7 @@ public class Player : MonoBehaviour
         mainCam.transform.localRotation = Quaternion.Euler(verticalLook, 0f, 0f);
     }
 
+    // Sets the player velocity in the forward direction
     public void SetVelocity()
     {
         rb.linearVelocity = Vector3.zero;

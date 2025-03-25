@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         currentTime = 0;
     }
 
+    // Update is called every frame
     void Update()
     {
         if (timerActive)
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Loads the render textures into the cameras
     public void LoadTextures()
     {
         if(cameraB.targetTexture != null)

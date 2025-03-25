@@ -13,18 +13,19 @@ public class PortalManager : MonoBehaviour
     private Portal portalB;
     private GameObject[] portals = new GameObject[2];
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Awake is called when the script instance is being loaded
     void Awake()
     {
         portals[0] = null;
         portals[1] = null;
     }
-
+    // Update is called every frame
     void Update()
     {
         PortalConnection(); 
     }
 
+    // Instantiates portal A at a given location
     public void SpawnPortalA(Transform location)
     {
         if (portals[0] != null)
@@ -48,6 +49,8 @@ public class PortalManager : MonoBehaviour
         portalA = portals[0].GetComponent<Portal>();
     }
 
+
+    // Instantiates portal B at a given location
     public void SpawnPortalB(Transform location){
         if (portals[1] != null)
         {
@@ -70,6 +73,7 @@ public class PortalManager : MonoBehaviour
         portalB = portals[1].GetComponent<Portal>();
     }
 
+    // Sends transform and camera refereces to portals if two exist and can be connected
     void PortalConnection()
     {
         if (portals[0] != null && portals[1] != null)
