@@ -1,28 +1,38 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-
+/* Portal script is placed on portal prefab
+ * Each portal has its own portal script
+ * Each portal has references to many different transforms and cameras.
+ * Portal script also has a reference to the Player script to update player on teleport
+ * Portal gets its refernces from PortalManager script
+ */
 public class Portal : MonoBehaviour
 {
-    public Player playerScript;
-    public Transform player;
-    public Camera playerCamera;
+    // Player References
+    public Player playerScript; 
+    public Transform player; 
+    public Camera playerCamera; 
 
+    // Target Portal (Other Portal) Refrences
     public Transform targetPortal;
     public Transform targetPortalSpawn;
     public Transform targetPortalCamera;
 
+    // This Portal Camera Reference (What will be displayed on target portal)
     public Camera portalCamera;
 
     public bool hasAllVariables;
     public bool playerEnterPortal;
 
+    // Awake is called when the script instance is being loaded
     void Awake()
     {
         portalCamera = GetComponentInChildren<Camera>();
         hasAllVariables = false;
         playerEnterPortal = false;
     }
-    // Update is called once per frame
+
+    // FixedUpdate is called every fixed framerate frame
     void FixedUpdate()
     {
         if (hasAllVariables)

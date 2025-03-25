@@ -1716,8 +1716,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 698837421}
   player: {fileID: 575795666}
-  prefabA: {fileID: 4470061580574649735, guid: 039ece7fc075fb5428ce095737926449, type: 3}
-  prefabB: {fileID: 4470061580574649735, guid: 928be1c987c22004a9456f70919b1709, type: 3}
+  prefabA: {fileID: 3503214843743973172, guid: 1d99c40626b85bc479114ad77ab975a3, type: 3}
+  prefabB: {fileID: 886457940314363844, guid: bad4f5a11e609094cabd20148befa695, type: 3}
 --- !u!4 &1692600479
 Transform:
   m_ObjectHideFlags: 0
