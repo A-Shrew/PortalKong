@@ -38,18 +38,6 @@ public class Portal : MonoBehaviour
 
     void PositionCamera()
     {
-        //// Copy the projection matrix from the player camera
-        //portalCamera.projectionMatrix = playerCamera.projectionMatrix;
-
-        //// Compute the position of the camera relative to the portal
-        //Vector3 relativePos = transform.InverseTransformPoint(playerCamera.transform.position);
-        //relativePos = Vector3.Scale(relativePos, new Vector3(-1, 1, -1)); // Mirror across the portal plane
-        //portalCamera.transform.position = targetPortal.TransformPoint(relativePos);
-
-        //// Compute the correct rotation using quaternions
-        //Quaternion rotationDifference = targetPortal.rotation * Quaternion.Inverse(transform.rotation);
-        //portalCamera.transform.rotation = rotationDifference * playerCamera.transform.rotation;
-
         Vector3 offset = player.transform.position - targetPortal.position;
 
         offset = transform.rotation * Quaternion.Inverse(targetPortal.rotation) * offset;
