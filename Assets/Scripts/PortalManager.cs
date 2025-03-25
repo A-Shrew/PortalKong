@@ -84,8 +84,8 @@ public class PortalManager : MonoBehaviour
             portalA.player = player.GetComponent<Transform>();
             portalB.player = player.GetComponent<Transform>();
 
-            portalA.playerCamera = player.GetComponentInChildren<Camera>().transform;
-            portalB.playerCamera = player.GetComponentInChildren<Camera>().transform;
+            portalA.playerCamera = player.GetComponentInChildren<Camera>();
+            portalB.playerCamera = player.GetComponentInChildren<Camera>();
 
             portalA.targetPortal = portals[1].GetComponent<Transform>();
             portalB.targetPortal = portals[0].GetComponent<Transform>();

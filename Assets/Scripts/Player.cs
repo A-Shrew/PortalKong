@@ -22,35 +22,34 @@ public class Player : MonoBehaviour
     [SerializeField] private float airDrag;
     [SerializeField] private float mouseSense;
 
-    private Rigidbody rb;
+    //Camera Stuff
     private float rotationSmoothTime;
     private float horizontalLook;
     private float verticalLook;
-    private float smoothX;
-    private float smoothY;
-    private float xSmoothing;
-    private float ySmoothing;
+    private float horizontalSmoothing;
+    private float verticalSmoothing;
+    private float xSmoothReference;
+    private float ySmoothReference;
+
+    //Player Stuff
+    private Rigidbody rb;
     private float jumpRay;
     private bool canDash;
     private bool hasDoubleJump;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Awake is called when the script instance is being loaded
     void Awake()
     {
+        InitiateInputs();
         rb = GetComponent<Rigidbody>();
         jumpRay = transform.localScale.y + 0.05f;
-        inputManager.OnMove.AddListener(Move);
-        inputManager.OnLook.AddListener(Look);
-        inputManager.OnSpacePressed.AddListener(Jump);
-        inputManager.OnShiftPressed.AddListener(Dash);
-        inputManager.OnMouseLeftPressed.AddListener(ShootPortalA);
-        inputManager.OnMouseRightPressed.AddListener(ShootPortalB);
         rotationSmoothTime = 0.1f;
-        smoothX = horizontalLook;
-        smoothY = verticalLook;
+        horizontalSmoothing = horizontalLook;
+        verticalSmoothing = verticalLook;
         canDash = true;
     }
 
+    // FixedUpdate is called every fixed framerate frame
     void FixedUpdate()
     {
         AuxiliaryMovement();
@@ -68,10 +67,10 @@ public class Player : MonoBehaviour
         verticalLook -= lookInput.y * mouseSense;
         verticalLook = (verticalLook + 180) % 360 - 180;
         verticalLook = Mathf.Clamp(verticalLook, -90f, 90f);
-        smoothX = Mathf.SmoothDampAngle(smoothX, horizontalLook, ref xSmoothing, rotationSmoothTime);
-        smoothY = Mathf.SmoothDampAngle(smoothY, verticalLook, ref ySmoothing, rotationSmoothTime);
+        horizontalSmoothing = Mathf.SmoothDampAngle(horizontalSmoothing, horizontalLook, ref xSmoothReference, rotationSmoothTime);
+        verticalSmoothing = Mathf.SmoothDampAngle(verticalSmoothing, verticalLook, ref ySmoothReference, rotationSmoothTime);
         rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.Euler(Vector3.up * horizontalLook), .6f));
-        mainCam.transform.localEulerAngles = Vector3.right * smoothY;
+        mainCam.transform.localEulerAngles = Vector3.right * verticalSmoothing;
     }
 
     private void Jump()
@@ -127,6 +126,16 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void InitiateInputs()
+    {
+        inputManager.OnMove.AddListener(Move);
+        inputManager.OnLook.AddListener(Look);
+        inputManager.OnSpacePressed.AddListener(Jump);
+        inputManager.OnShiftPressed.AddListener(Dash);
+        inputManager.OnMouseLeftPressed.AddListener(ShootPortalA);
+        inputManager.OnMouseRightPressed.AddListener(ShootPortalB);
     }
 
     private void ShootPortalA()

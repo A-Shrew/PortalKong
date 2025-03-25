@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: a1372e9acbe7c164699fe0c4758ce692
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cameraA: {instanceID: 0}
+  - cameraB: {instanceID: 0}
+  - cameraMatA: {fileID: 2100000, guid: b03dc075f4785f440a26ab638de97f09, type: 2}
+  - cameraMatB: {fileID: 2100000, guid: c6263ad97e4b6b642b6e606e49d4380f, type: 2}
+  - currentTimeText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

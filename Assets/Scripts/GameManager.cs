@@ -1,19 +1,35 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public Camera cameraA;
-    public Material cameraMatA;
     public Camera cameraB;
+    public Material cameraMatA;
     public Material cameraMatB;
+
+    [SerializeField] private TextMeshProUGUI currentTimeText;
+    private float currentTime;
+    private bool timerActive;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
+        timerActive = true;
+        currentTime = 0;
     }
-    
+
+    void Update()
+    {
+        if (timerActive)
+        {
+            currentTime += Time.deltaTime;
+            currentTimeText.text = currentTime.ToString("n2");
+        }
+    }
+
     public void LoadTextures()
     {
         if(cameraB.targetTexture != null)
