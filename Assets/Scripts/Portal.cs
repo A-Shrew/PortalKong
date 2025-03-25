@@ -5,7 +5,7 @@ public class Portal : MonoBehaviour
 {
     public Player playerScript;
     public Transform player;
-    public Transform playerCamera;
+    public Camera playerCamera;
 
     public Transform targetPortal;
     public Transform targetPortalSpawn;
@@ -23,7 +23,7 @@ public class Portal : MonoBehaviour
         playerEnterPortal = false;
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (hasAllVariables)
         {
@@ -38,39 +38,35 @@ public class Portal : MonoBehaviour
 
     void PositionCamera()
     {
-        Vector3 Offset = player.transform.position - targetPortal.position;
-        portalCamera.transform.position = transform.position + Offset;
+        Vector3 offset = player.transform.position - targetPortal.position;
 
-        //// Finds and sets signed horizontal angle between the portals
-        //Vector3 vecA = transform.rotation * Vector3.up;
-        //Vector3 vecB = targetPortal.rotation * Vector3.up;
-        //float angleA = Mathf.Atan2(vecA.x, vecA.z) * Mathf.Rad2Deg;
-        //float angleB = Mathf.Atan2(vecB.x, vecB.z) * Mathf.Rad2Deg;
-        //var angleDiff = Mathf.DeltaAngle(angleA, angleB);
-    
-        float horizontalAngle = Quaternion.Angle(transform.rotation, targetPortal.rotation);
-        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        offset = transform.rotation * Quaternion.Inverse(targetPortal.rotation) * offset;
 
-        float verticalAngle = playerCamera.eulerAngles.x;
+        portalCamera.transform.position = transform.position - offset;
+
+        float horizontalAngle = Vector3.SignedAngle(transform.forward,targetPortal.forward,Vector3.up);
+        Quaternion horizontalRotation = Quaternion.AngleAxis(-horizontalAngle, Vector3.up);
+
+        float verticalAngle = playerCamera.transform.eulerAngles.x;
         Quaternion verticalRotation = Quaternion.AngleAxis(-verticalAngle, player.transform.right);
 
         Quaternion combinedRotation = horizontalRotation * verticalRotation;
 
         Vector3 direction = combinedRotation * -player.transform.forward;
-        portalCamera.transform.rotation = Quaternion.LookRotation(direction);
+        portalCamera.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
     }
 
     void OnTeleport()
     {
         if (playerEnterPortal)
         {
+            Quaternion rotation = targetPortalCamera.rotation;
             Vector3 portalToPlayer = player.position - transform.position;
-            
-            float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
+            float dotProduct = Vector3.Dot(transform.forward, portalToPlayer);
           
             if (dotProduct < 0f)
             {
-                Quaternion rotation = targetPortalCamera.rotation;
+               
                 player.position = new Vector3(targetPortalSpawn.position.x, player.position.y, targetPortalSpawn.position.z);
 
                 playerScript = player.GetComponent<Player>();
