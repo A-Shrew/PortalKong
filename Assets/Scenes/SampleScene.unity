@@ -263,12 +263,24 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: dash
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: jump
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: speed
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: airDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: gravity
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: mainCam
@@ -276,11 +288,19 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: maxSpeed
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: mouseSense
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: dashCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: extraGravity
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: portalManager
@@ -341,6 +361,10 @@ PrefabInstance:
     - target: {fileID: 7629454955415702520, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: mouseSensitivity
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517796641102526531, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8517796641102526531, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: m_Constraints

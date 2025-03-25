@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     public UnityEvent OnSpacePressed = new();
     public UnityEvent OnMouseLeftPressed = new();
     public UnityEvent OnMouseRightPressed = new();
+    public UnityEvent<Vector2> OnShiftPressed = new();
     public UnityEvent<Vector2> OnMove = new();
     public UnityEvent<Vector2> OnLook = new();
 
@@ -39,6 +40,11 @@ public class InputManager : MonoBehaviour
         }
 
         OnMove?.Invoke(input);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            OnShiftPressed?.Invoke(input);
+        }
 
         Vector2 look = Vector2.zero;
         if (Input.GetAxisRaw("Mouse X") != 0)
