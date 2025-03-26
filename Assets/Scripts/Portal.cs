@@ -76,7 +76,7 @@ public class Portal : MonoBehaviour
 
             if (dotProduct < 0f)
             {
-                player.position = new Vector3(targetPortalSpawn.position.x, player.position.y, targetPortalSpawn.position.z);
+                player.position = targetPortalSpawn.position;
 
                 playerScript = player.GetComponent<Player>();
                 if (playerScript != null)
