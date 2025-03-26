@@ -133,6 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 1225748160178028932}
-  barrel: {fileID: 8490879466592519014, guid: 7be18171dae66fe42a58d68592ed568d, type: 3}
+  barrel: {fileID: 245159010411854377, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
   spawnTime: 2
   destroyTime: 7
