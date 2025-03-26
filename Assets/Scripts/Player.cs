@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     [Header("Player Stats")]
     [SerializeField] private float speed;
+    [SerializeField] private float ladderSpeed;
     [SerializeField] private float jump;
     [SerializeField] private float dash;
     [SerializeField] private float dashCooldown;
@@ -38,6 +39,8 @@ public class Player : MonoBehaviour
     //Player Stuff
     private Rigidbody rb;
     private float jumpRay;
+    private float ladderRay;
+    private bool isGrounded;
     private bool canDash;
     private bool canShootPortal;
     private bool hasDoubleJump;
@@ -48,9 +51,11 @@ public class Player : MonoBehaviour
         AddInputs();
         rb = GetComponent<Rigidbody>();
         jumpRay = transform.localScale.y + 0.05f;
+        ladderRay = transform.localScale.x + 0.05f;
         rotationSmoothTime = 0.1f;
         horizontalSmoothing = horizontalLook;
         verticalSmoothing = verticalLook;
+        isGrounded = true;
         canDash = true;
         canShootPortal = true;
     }
@@ -64,8 +69,18 @@ public class Player : MonoBehaviour
     // Moves the player by a constant force with mass in a normalized direction given by wasd input
     private void Move(Vector2 direction)
     {
-        Vector3 moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y).normalized;
-        rb.AddForce(speed * moveDirection, ForceMode.Impulse);
+        Vector3 moveDirection;
+        if (IsOnLadder() && direction.y>0f)
+        {
+            moveDirection = rb.rotation * new Vector2(direction.x, direction.y).normalized;
+            rb.AddForce(ladderSpeed * moveDirection, ForceMode.Impulse);
+        }
+        else
+        {
+            moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y).normalized;
+            rb.AddForce(speed * moveDirection, ForceMode.Impulse);
+        }
+        
     }
 
     // Changes camera and player rotation from mouse movements
@@ -84,10 +99,11 @@ public class Player : MonoBehaviour
     // Moves the player by a constant force ignoring its mass upwards if grounded or if the player has a double jump
     private void Jump()
     {
-        if (IsGrounded())
+        if (isGrounded)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(jump * Vector3.up, ForceMode.VelocityChange);
+            isGrounded = false;
         }
         else if (hasDoubleJump)
         {
@@ -126,19 +142,39 @@ public class Player : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x / (1 + airDrag), rb.linearVelocity.y, rb.linearVelocity.z / (1 + airDrag));
 
         // Apply Extra Gravity
-        if (!IsGrounded())
+        if (!isGrounded)
         {
             rb.AddForce(extraGravity * -transform.up, ForceMode.Acceleration);
         }
+        IsGrounded();
     }
 
     // Boolean using raycast to determing whether or not the player is touching the ground
-    private bool IsGrounded()
+    private void IsGrounded()
     {
         if (Physics.Raycast(transform.position, Vector3.down, jumpRay))
         {
             hasDoubleJump = true;
-            return true;
+            isGrounded = true;
+        }
+        else if (IsOnLadder())
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
+
+    private bool IsOnLadder()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, ladderRay))
+        {
+            if(hit.collider.CompareTag("Ladder"))
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -168,7 +204,6 @@ public class Player : MonoBehaviour
                     Instantiate(particlesA, target.transform);
                     StartCoroutine(PortalCooldown());
                 }
-
             }
         }
     }

@@ -8,6 +8,7 @@ TagManager:
   - PortalA
   - PortalB
   - PortalWall
+  - Ladder
   layers:
   - Default
   - TransparentFX
