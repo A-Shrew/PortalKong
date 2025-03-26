@@ -80,10 +80,12 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(jump * Vector3.up, ForceMode.VelocityChange);
         }
         else if (hasDoubleJump)
         {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(jump * Vector3.up, ForceMode.VelocityChange);
             hasDoubleJump = false;
         }
