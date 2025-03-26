@@ -205,6 +205,14 @@ public class Player : MonoBehaviour
                     StartCoroutine(PortalCooldown());
                 }
             }
+            else if (target.CompareTag("Portal"))
+            {
+                if (canShootPortal)
+                {
+                    portalManager.SpawnPortalA(target.transform.parent);
+                    StartCoroutine(PortalCooldown());
+                }
+            }
         }
     }
 
@@ -220,6 +228,14 @@ public class Player : MonoBehaviour
                 {
                     portalManager.SpawnPortalB(target.transform);
                     Instantiate(particlesB, target.transform);
+                    StartCoroutine(PortalCooldown());
+                }
+            }
+            else if (target.CompareTag("Portal"))
+            {
+                if (canShootPortal)
+                {
+                    portalManager.SpawnPortalB(target.transform.parent);
                     StartCoroutine(PortalCooldown());
                 }
             }
