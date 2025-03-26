@@ -10,17 +10,21 @@ public class Player : MonoBehaviour
     public Camera mainCam;
     [SerializeField] private PortalManager portalManager;
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private ParticleSystem particlesA;
+    [SerializeField] private ParticleSystem particlesB;
 
     [Header("Player Stats")]
     [SerializeField] private float speed;
     [SerializeField] private float jump;
     [SerializeField] private float dash;
     [SerializeField] private float dashCooldown;
+    [SerializeField] private float portalCooldown;
 
     [Header("Player Physics")]
     [SerializeField] private float extraGravity;
     [SerializeField] private float airDrag;
     [SerializeField] private float mouseSense;
+
 
     //Camera Stuff
     private float rotationSmoothTime;
@@ -35,6 +39,7 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     private float jumpRay;
     private bool canDash;
+    private bool canShootPortal;
     private bool hasDoubleJump;
 
     // Awake is called when the script instance is being loaded
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
         horizontalSmoothing = horizontalLook;
         verticalSmoothing = verticalLook;
         canDash = true;
+        canShootPortal = true;
     }
 
     // FixedUpdate is called every fixed framerate frame
@@ -80,10 +86,12 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(jump * Vector3.up, ForceMode.VelocityChange);
         }
         else if (hasDoubleJump)
         {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(jump * Vector3.up, ForceMode.VelocityChange);
             hasDoubleJump = false;
         }
@@ -154,7 +162,13 @@ public class Player : MonoBehaviour
             GameObject target = hit.collider.gameObject;
             if (target.CompareTag("PortalWall"))
             {
-                portalManager.SpawnPortalA(target.transform);
+                if (canShootPortal)
+                {
+                    portalManager.SpawnPortalA(target.transform);
+                    Instantiate(particlesA, target.transform);
+                    StartCoroutine(PortalCooldown());
+                }
+
             }
         }
     }
@@ -167,10 +181,25 @@ public class Player : MonoBehaviour
             GameObject target = hit.collider.gameObject;
             if (target.CompareTag("PortalWall"))
             {
-                portalManager.SpawnPortalB(target.transform);
+                if (canShootPortal)
+                {
+                    portalManager.SpawnPortalB(target.transform);
+                    Instantiate(particlesB, target.transform);
+                    StartCoroutine(PortalCooldown());
+                }
             }
         }
     }
+    // Function to start a timer for when a player is able to dash 
+    private IEnumerator PortalCooldown()
+    {
+        canShootPortal = false;
+
+        yield return new WaitForSeconds(portalCooldown);
+
+        canShootPortal = true;
+    }
+
 
     // Sets the player rotation from a given quaternion
     public void SetRotation(Quaternion newRotation)
