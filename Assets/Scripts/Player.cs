@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     private float ySmoothReference;
 
     //Player Stuff
-    private Rigidbody rb;
+    public Rigidbody rb;
     private float jumpRay;
     private float ladderRay;
     private bool isGrounded;
@@ -186,61 +186,37 @@ public class Player : MonoBehaviour
         inputManager.OnLook.AddListener(Look);
         inputManager.OnSpacePressed.AddListener(Jump);
         inputManager.OnShiftPressed.AddListener(Dash);
-        inputManager.OnMouseLeftPressed.AddListener(ShootPortalA);
-        inputManager.OnMouseRightPressed.AddListener(ShootPortalB);
+        inputManager.OnMousePressed.AddListener(ShootPortal);
     }
 
     // Shoots the A portal and calls the PortalManager script SpawnPortalA function if it hits a portal wall
-    private void ShootPortalA()
+    private void ShootPortal(char portal)
     {
-        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, Mathf.Infinity))
-        {
-            GameObject target = hit.collider.gameObject;
-            if (target.CompareTag("PortalWall"))
-            {
-                if (canShootPortal)
-                {
-                    portalManager.SpawnPortalA(target.transform);
-                    Instantiate(particlesA, target.transform);
-                    StartCoroutine(PortalCooldown());
-                }
-            }
-            else if (target.CompareTag("Portal"))
-            {
-                if (canShootPortal)
-                {
-                    portalManager.SpawnPortalA(target.transform.parent);
-                    StartCoroutine(PortalCooldown());
-                }
-            }
-        }
-    }
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(mainCam.transform.position, mainCam.transform.forward, Mathf.Infinity);
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
-    // Shoots the B portal and calls the PortalManager script SpawnPortalB function if it hits a portal wall
-    private void ShootPortalB()
-    {
-        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, Mathf.Infinity))
+        for (int i = 0; i < hits.Length; i++)
         {
-            GameObject target = hit.collider.gameObject;
-            if (target.CompareTag("PortalWall"))
+            if (hits[i].collider.CompareTag("PortalWall") && canShootPortal)
             {
-                if (canShootPortal)
+                if (portal == 'a')
                 {
-                    portalManager.SpawnPortalB(target.transform);
-                    Instantiate(particlesB, target.transform);
+                    portalManager.CreatePortalA(hits[i].collider.gameObject);
+                    Instantiate(particlesA, hits[i].transform);
                     StartCoroutine(PortalCooldown());
                 }
-            }
-            else if (target.CompareTag("Portal"))
-            {
-                if (canShootPortal)
+                else if (portal == 'b')
                 {
-                    portalManager.SpawnPortalB(target.transform.parent);
+                    portalManager.CreatePortalB(hits[i].collider.gameObject);
+                    Instantiate(particlesB, hits[i].transform);
                     StartCoroutine(PortalCooldown());
                 }
+                break;
             }
         }
     }
+            
     // Function to start a timer for when a player is able to dash 
     private IEnumerator PortalCooldown()
     {
@@ -253,21 +229,16 @@ public class Player : MonoBehaviour
 
 
     // Sets the player rotation from a given quaternion
-    public void SetRotation(Quaternion newRotation)
+    public void SetRotationAndVelocity(Quaternion newRotation, Vector3 velocity)
     {
+
         Vector3 targetEuler = newRotation.eulerAngles;
-        // Update look variables to prevent the Look() function from immediately overriding it
         horizontalLook = targetEuler.y;
         rb.rotation = Quaternion.Euler(0f, horizontalLook, 0f);
 
         verticalLook = targetEuler.x;
         mainCam.transform.localRotation = Quaternion.Euler(verticalLook, 0f, 0f);
-    }
 
-    // Sets the player velocity in the forward direction
-    public void SetVelocity()
-    {
-        rb.linearVelocity = Vector3.zero;
-        rb.AddForce(speed * transform.forward, ForceMode.Impulse);
+        rb.linearVelocity = newRotation * (velocity.magnitude * Vector3.forward);
     }
 }

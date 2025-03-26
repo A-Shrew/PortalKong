@@ -81,8 +81,7 @@ public class Portal : MonoBehaviour
                 playerScript = player.GetComponent<Player>();
                 if (playerScript != null)
                 {
-                    playerScript.SetRotation(rotation);
-                    playerScript.SetVelocity();// Pass the target rotation
+                    playerScript.SetRotationAndVelocity(rotation, playerScript.rb.linearVelocity);
                 }
                 playerEnterPortal = false;
             }

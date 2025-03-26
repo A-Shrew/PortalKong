@@ -1,6 +1,9 @@
 
 using System;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.Rendering;
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 public class PortalManager : MonoBehaviour
 {
@@ -11,6 +14,9 @@ public class PortalManager : MonoBehaviour
 
     private Portal portalA;
     private Portal portalB;
+
+    private Collider portalWallA;
+    private Collider portalWallB;
     private GameObject[] portals = new GameObject[2];
 
     // Awake is called when the script instance is being loaded
@@ -20,57 +26,130 @@ public class PortalManager : MonoBehaviour
         portals[1] = null;
     }
     // Update is called every frame
-    void Update()
+    void LateUpdate()
     {
         PortalConnection(); 
     }
 
-    // Instantiates portal A at a given location
-    public void SpawnPortalA(Transform location)
+    // Pain
+    public void CreatePortalA(GameObject wall)
     {
-        if (portals[0] != null)
+        Collider wallCollider = wall.GetComponent<Collider>();
+        if (portals[0] == null && portals[1] == null)
         {
-            Destroy(portals[0]);
-
-            if (portals[1] != null && portals[1].transform.position == location.position)
-            {
-                Destroy(portals[1]);
-            }
-            portals[0] = Instantiate(prefabA, location.position, location.rotation);
+            portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
+            portalWallA = wallCollider;
         }
-        else
+        else if (portals[0] != null && portals[1] != null)
         {
-            if (portals[1] != null && portals[1].transform.position == location.position)
+            if (portals[0].transform.position != wall.transform.position && portals[1].transform.position != wall.transform.position)
+            {
+                Destroy(portals[0]);
+                portalWallA.isTrigger = false;
+                portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
+                portalWallA = wallCollider;
+            }
+            else if (portals[1].transform.position == wall.transform.position)
+            {
+                Destroy(portals[0]);
+                Destroy(portals[1]);
+                portalWallA.isTrigger = false;
+                portalWallB.isTrigger = false;
+                portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
+                portalWallA = wallCollider;
+            }
+        }
+        else if (portals[0] != null)
+        {
+            if (portals[0].transform.position != wall.transform.position)
+            {
+                Destroy(portals[0]);
+                portalWallA.isTrigger = false;
+                portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
+                portalWallA = wallCollider;
+            }
+        }
+        else if (portals[1] != null)
+        {
+            if (portals[1].transform.position == wall.transform.position)
             {
                 Destroy(portals[1]);
+                portalWallB.isTrigger = false;
+                portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
+                portalWallA = wallCollider;
             }
-            portals[0] = Instantiate(prefabA, location.position, location.rotation);
+            else
+            {
+                portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
+                portalWallA = wallCollider;
+            }
         }
         portalA = portals[0].GetComponent<Portal>();
     }
 
-
-    // Instantiates portal B at a given location
-    public void SpawnPortalB(Transform location){
-        if (portals[1] != null)
+    // More Pain
+    public void CreatePortalB(GameObject wall)
+    {
+        Collider wallCollider = wall.GetComponent<Collider>();
+        if (portals[0] == null && portals[1] == null)
         {
-            Destroy(portals[1]);
-
-            if (portals[0] != null && portals[0].transform.position == location.position)
-            {
-                Destroy(portals[0]);
-            }
-            portals[1] = Instantiate(prefabB, location.position, location.rotation);
+            portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
+            portalWallB = wallCollider;
         }
-        else
+        else if (portals[0] != null && portals[1] != null)
         {
-            if (portals[0] != null && portals[0].transform.position == location.position)
+            if (portals[1].transform.position != wall.transform.position && portals[0].transform.position != wall.transform.position)
+            {
+                Destroy(portals[1]);
+                portalWallB.isTrigger = false;
+                portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
+                portalWallB = wallCollider;
+            }
+            else if (portals[0].transform.position == wall.transform.position)
             {
                 Destroy(portals[0]);
+                Destroy(portals[1]);
+                portalWallB.isTrigger = false;
+                portalWallA.isTrigger = false;
+                portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
+                portalWallB = wallCollider;
             }
-            portals[1] = Instantiate(prefabB, location.position, location.rotation);
+        }
+        else if (portals[1] != null)
+        {
+            if (portals[1].transform.position != wall.transform.position)
+            {
+                Destroy(portals[1]);
+                portalWallB.isTrigger = false;
+                portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
+                portalWallB = wallCollider;
+            }
+        }
+        else if (portals[0] != null)
+        {
+            if (portals[0].transform.position == wall.transform.position)
+            {
+                Destroy(portals[0]);
+                portalWallA.isTrigger = false;
+                portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
+                portalWallB = wallCollider;
+            }
+            else
+            {
+                portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
+                portalWallB = wallCollider;
+            }
         }
         portalB = portals[1].GetComponent<Portal>();
+    }
+
+    public void DestroyPortalA()
+    {
+        Destroy(portals[0]);
+    }
+    public void DestroyPortalB()
+    {
+        Destroy(portals[1]);
     }
 
     // Sends transform and camera refereces to portals if two exist and can be connected
@@ -99,6 +178,9 @@ public class PortalManager : MonoBehaviour
 
             portalA.targetPortalCamera = portals[1].GetComponentInChildren<Camera>().transform;
             portalB.targetPortalCamera = portals[0].GetComponentInChildren<Camera>().transform;
+
+            portalWallA.isTrigger = true;
+            portalWallB.isTrigger = true;
         }
     }
 }
