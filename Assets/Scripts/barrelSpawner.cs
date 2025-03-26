@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class barrelSpawner : MonoBehaviour
 {
-    public GameObject spawner;
     public GameObject barrel;
     public float spawnTime;
     public float destroyTime;
+    Quaternion spawnDirection;
 
     private void Start()
     {
@@ -13,8 +13,7 @@ public class barrelSpawner : MonoBehaviour
     }
     public void spawnBarrel()
     {
-        GameObject brl = Instantiate(barrel);
-        brl.transform.position = spawner.transform.position;
+        GameObject brl = Instantiate(barrel, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(brl, destroyTime);
     }
 }
