@@ -12,12 +12,19 @@ public class InputManager : MonoBehaviour
 
     //public UnityEvent OnResetPressed = new UnityEvent();
 
-    void Update()
+    void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        Vector2 look = Vector2.zero;
+        if (Input.GetAxisRaw("Mouse X") != 0)
         {
-            OnSpacePressed?.Invoke();
+            look.x = Input.GetAxisRaw("Mouse X");
         }
+        if (Input.GetAxisRaw("Mouse Y") != 0)
+        {
+            look.y = Input.GetAxisRaw("Mouse Y");
+        }
+
+        OnLook?.Invoke(look);
 
         Vector2 input = Vector2.zero;
         if (Input.GetKey(KeyCode.A))
@@ -39,22 +46,15 @@ public class InputManager : MonoBehaviour
 
         OnMove?.Invoke(input);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnSpacePressed?.Invoke();
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             OnShiftPressed?.Invoke(input);
         }
-
-        Vector2 look = Vector2.zero;
-        if (Input.GetAxisRaw("Mouse X") != 0)
-        {
-            look.x = Input.GetAxisRaw("Mouse X");
-        }
-        if (Input.GetAxisRaw("Mouse Y") != 0)
-        {
-            look.y = Input.GetAxisRaw("Mouse Y");
-        }
-
-        OnLook?.Invoke(look);
 
         if (Input.GetMouseButton(0))
         {

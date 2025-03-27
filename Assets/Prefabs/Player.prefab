@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4118033033771846113}
+  - component: {fileID: 3397751669454105162}
   - component: {fileID: 4361698700105383599}
   - component: {fileID: 5599998319863049243}
   - component: {fileID: 4959527527768929073}
   - component: {fileID: 8517796641102526531}
-  - component: {fileID: 3397751669454105162}
   - component: {fileID: 8138874392673867038}
   m_Layer: 6
   m_Name: Player
@@ -39,6 +39,33 @@ Transform:
   - {fileID: 422432216685500418}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3397751669454105162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904522616458947262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8b8010b47cfe641bd7ce39fecd8885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
+  portalManager: {fileID: 0}
+  inputManager: {fileID: 8138874392673867038}
+  particlesA: {fileID: 0}
+  particlesB: {fileID: 0}
+  speed: 4
+  ladderSpeed: 0
+  jump: 10
+  dash: 0
+  dashCooldown: 0
+  portalCooldown: 0
+  extraGravity: 0
+  airDrag: 0
+  mouseSense: 0
+  rb: {fileID: 0}
 --- !u!33 &4361698700105383599
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -142,32 +169,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &3397751669454105162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904522616458947262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc8b8010b47cfe641bd7ce39fecd8885, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
-  portalManager: {fileID: 0}
-  inputManager: {fileID: 8138874392673867038}
-  particlesA: {fileID: 0}
-  particlesB: {fileID: 0}
-  speed: 4
-  ladderSpeed: 0
-  jump: 10
-  dash: 0
-  dashCooldown: 0
-  portalCooldown: 0
-  extraGravity: 0
-  airDrag: 0
-  mouseSense: 0
 --- !u!114 &8138874392673867038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +184,7 @@ MonoBehaviour:
   OnSpacePressed:
     m_PersistentCalls:
       m_Calls: []
-  OnMouseLeftPressed:
+  OnMousePressed:
     m_PersistentCalls:
       m_Calls: []
   OnMouseRightPressed:

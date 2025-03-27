@@ -207,15 +207,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: dash
-      value: 7
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: jump
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: speed
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: airDrag
@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: ladderSpeed
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: dashCooldown
@@ -259,7 +259,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: extraGravity
-      value: 15
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: airMultiplier
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: portalManager
@@ -271,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: rotationSmoothTime
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4118033033771846113, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: m_LocalScale.x
@@ -340,6 +344,10 @@ PrefabInstance:
     - target: {fileID: 7629454955415702520, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: mouseSensitivity
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517796641102526531, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: m_Drag
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8517796641102526531, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: m_UseGravity
@@ -2907,7 +2915,7 @@ PrefabInstance:
     - target: {fileID: 3205992305370926024, guid: 85139681a1df749499f2a9fd5f64ae63, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: acfec7ac89dfd8e4eb7d871a1960fb7f, type: 2}
+      objectReference: {fileID: 13400000, guid: 203596c678b2c1d4fab5b5bb87fff62e, type: 2}
     - target: {fileID: 4913437410056123170, guid: 85139681a1df749499f2a9fd5f64ae63, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.954262

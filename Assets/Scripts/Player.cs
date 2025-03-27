@@ -21,11 +21,12 @@ public class Player : MonoBehaviour
     [Header("Player Physics")]
     [SerializeField] private float extraGravity;
     [SerializeField] private float airDrag;
+    [SerializeField] private float airMultiplier;
     [SerializeField] private float mouseSense;
 
 
     //Camera Stuff
-    private float rotationSmoothTime;
+    [SerializeField] private float rotationSmoothTime;
     private float horizontalLook;
     private float verticalLook;
     private float horizontalSmoothing;
@@ -49,7 +50,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         jumpRay = transform.localScale.y + 0.05f;
         ladderRay = transform.localScale.x + 0.05f;
-        rotationSmoothTime = 0.1f;
         horizontalSmoothing = horizontalLook;
         verticalSmoothing = verticalLook;
         isGrounded = true;
@@ -72,7 +72,12 @@ public class Player : MonoBehaviour
             moveDirection = rb.rotation * new Vector2(direction.x, direction.y).normalized;
             rb.AddForce(ladderSpeed * moveDirection, ForceMode.Impulse);
         }
-        else
+        else if (!isGrounded)
+        {
+            moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y).normalized;
+            rb.AddForce(speed * moveDirection * airMultiplier, ForceMode.Impulse);
+        }
+        else 
         {
             moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y).normalized;
             rb.AddForce(speed * moveDirection, ForceMode.Impulse);
@@ -87,9 +92,11 @@ public class Player : MonoBehaviour
         verticalLook -= lookInput.y * mouseSense;
         verticalLook = (verticalLook + 180) % 360 - 180;
         verticalLook = Mathf.Clamp(verticalLook, -90f, 90f);
+
         horizontalSmoothing = Mathf.SmoothDampAngle(horizontalSmoothing, horizontalLook, ref xSmoothReference, rotationSmoothTime);
         verticalSmoothing = Mathf.SmoothDampAngle(verticalSmoothing, verticalLook, ref ySmoothReference, rotationSmoothTime);
-        rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.Euler(Vector3.up * horizontalLook), .6f));
+
+        rb.MoveRotation(Quaternion.Euler(Vector3.up * horizontalSmoothing));
         mainCam.transform.localEulerAngles = Vector3.right * verticalSmoothing;
     }
 
@@ -116,8 +123,10 @@ public class Player : MonoBehaviour
         if (canDash)
         {
             Vector3 moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y).normalized;
-            rb.AddForce(dash * moveDirection, ForceMode.VelocityChange);
-            rb.AddForce(dash / 10 * Vector3.up, ForceMode.VelocityChange);
+
+            rb.AddForce(dash * mainCam.transform.forward, ForceMode.VelocityChange);
+            //rb.AddForce(dash * moveDirection, ForceMode.VelocityChange);
+            //rb.AddForce(dash / 10 * Vector3.up, ForceMode.VelocityChange);
             StartCoroutine(DashCooldown());
         }
     }
