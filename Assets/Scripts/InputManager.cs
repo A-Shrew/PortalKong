@@ -1,7 +1,5 @@
-using System;
 using UnityEngine.Events;
 using UnityEngine;
-using Unity.VisualScripting;
 
 public class InputManager : MonoBehaviour
 {

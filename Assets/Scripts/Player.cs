@@ -1,8 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Windows;
 
 public class Player : MonoBehaviour
 {
@@ -149,7 +146,7 @@ public class Player : MonoBehaviour
         IsGrounded();
     }
 
-    // Boolean using raycast to determing whether or not the player is touching the ground
+    // Updates isGrounded boolean using raycast to determine whether or not the player is touching the ground
     private void IsGrounded()
     {
         if (Physics.Raycast(transform.position, Vector3.down, jumpRay))
@@ -167,6 +164,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Uses raycast to determine if the player is touching a ladder
     private bool IsOnLadder()
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, ladderRay))
@@ -221,17 +219,13 @@ public class Player : MonoBehaviour
     private IEnumerator PortalCooldown()
     {
         canShootPortal = false;
-
         yield return new WaitForSeconds(portalCooldown);
-
         canShootPortal = true;
     }
-
 
     // Sets the player rotation from a given quaternion
     public void SetRotationAndVelocity(Quaternion newRotation, Vector3 velocity)
     {
-
         Vector3 targetEuler = newRotation.eulerAngles;
         horizontalLook = targetEuler.y;
         rb.rotation = Quaternion.Euler(0f, horizontalLook, 0f);

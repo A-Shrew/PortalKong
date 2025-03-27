@@ -1,9 +1,4 @@
-
-using System;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Rendering;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 public class PortalManager : MonoBehaviour
 {
@@ -14,7 +9,6 @@ public class PortalManager : MonoBehaviour
 
     private Portal portalA;
     private Portal portalB;
-
     private Collider portalWallA;
     private Collider portalWallB;
     private GameObject[] portals = new GameObject[2];
@@ -25,6 +19,7 @@ public class PortalManager : MonoBehaviour
         portals[0] = null;
         portals[1] = null;
     }
+
     // Update is called every frame
     void LateUpdate()
     {
@@ -143,17 +138,20 @@ public class PortalManager : MonoBehaviour
         portalB = portals[1].GetComponent<Portal>();
     }
 
+    // Public script to destroy portal A
     public void DestroyPortalA()
     {
         Destroy(portals[0]);
     }
+
+    // Public script to destroy portal B
     public void DestroyPortalB()
     {
         Destroy(portals[1]);
     }
 
     // Sends transform and camera refereces to portals if two exist and can be connected
-    void PortalConnection()
+    private void PortalConnection()
     {
         if (portals[0] != null && portals[1] != null)
         {
