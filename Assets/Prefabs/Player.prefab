@@ -64,7 +64,9 @@ MonoBehaviour:
   portalCooldown: 0
   extraGravity: 0
   airDrag: 0
+  airMultiplier: 0
   mouseSense: 0
+  rotationSmoothTime: 0
   rb: {fileID: 0}
 --- !u!33 &4361698700105383599
 MeshFilter:
@@ -346,15 +348,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.345
+      value: 0.342
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.235
+      value: -0.243
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.587
+      value: 0.633
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalRotation.w
