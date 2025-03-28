@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 
 public class PortalManager : MonoBehaviour
 {
-    public GameManager gameManager;
-    public GameObject player;
-    public GameObject prefabA;
-    public GameObject prefabB;
+    [SerializeField] public GameManager gameManager;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject prefabA;
+    [SerializeField] private GameObject prefabB;
 
     private Portal portalA;
     private Portal portalB;
@@ -23,10 +24,18 @@ public class PortalManager : MonoBehaviour
     // Update is called every frame
     void LateUpdate()
     {
-        PortalConnection(); 
+        if(CheckConnection(portalA) && CheckConnection(portalB))
+        {
+            portalA.hasAllVariables = true;
+            portalB.hasAllVariables = true;
+        }
+        else
+        {
+            PortalConnection();
+        }
     }
 
-    // Pain
+    // Instantiates portal A on wall
     public void CreatePortalA(GameObject wall)
     {
         Collider wallCollider = wall.GetComponent<Collider>();
@@ -80,9 +89,10 @@ public class PortalManager : MonoBehaviour
             }
         }
         portalA = portals[0].GetComponent<Portal>();
+        portalA.hasAllVariables = false;
     }
 
-    // More Pain
+    // Instantiates portal B on wall
     public void CreatePortalB(GameObject wall)
     {
         Collider wallCollider = wall.GetComponent<Collider>();
@@ -136,18 +146,7 @@ public class PortalManager : MonoBehaviour
             }
         }
         portalB = portals[1].GetComponent<Portal>();
-    }
-
-    // Public script to destroy portal A
-    public void DestroyPortalA()
-    {
-        Destroy(portals[0]);
-    }
-
-    // Public script to destroy portal B
-    public void DestroyPortalB()
-    {
-        Destroy(portals[1]);
+        portalB.hasAllVariables = false;
     }
 
     // Sends transform and camera refereces to portals if two exist and can be connected
@@ -177,8 +176,31 @@ public class PortalManager : MonoBehaviour
             portalA.targetPortalCamera = portals[1].GetComponentInChildren<Camera>().transform;
             portalB.targetPortalCamera = portals[0].GetComponentInChildren<Camera>().transform;
 
+            portalA.portalScreen = portals[1].GetComponent<Transform>().GetChild(1).transform;
+            portalB.portalScreen = portals[0].GetComponent<Transform>().GetChild(1).transform;
+
             portalWallA.isTrigger = true;
             portalWallB.isTrigger = true;
+        }
+    }
+
+    // Checks if all portal variables are connected
+    private bool CheckConnection(Portal portal)
+    {
+        try
+        {
+            if (portal.playerScript == null || portal.player == null || portal.playerCamera == null || portal.targetPortal == null || portal.targetPortalSpawn == null || portal.targetPortalCamera == null || portal.portalScreen == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 }

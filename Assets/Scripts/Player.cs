@@ -13,7 +13,9 @@ public class Player : MonoBehaviour
     [Header("Player Stats")]
     [SerializeField] private float speed;
     [SerializeField] private float ladderSpeed;
+    [SerializeField] private float ladderGrabDistance;
     [SerializeField] private float jump;
+    [SerializeField] private float jumpBufferDistance;
     [SerializeField] private float dash;
     [SerializeField] private float dashCooldown;
     [SerializeField] private float portalCooldown;
@@ -48,8 +50,8 @@ public class Player : MonoBehaviour
     {
         AddInputs();
         rb = GetComponent<Rigidbody>();
-        jumpRay = transform.localScale.y + 0.05f;
-        ladderRay = transform.localScale.x + 0.05f;
+        jumpRay = transform.localScale.y + jumpBufferDistance;
+        ladderRay = transform.localScale.x/2 + ladderGrabDistance;
         horizontalSmoothing = horizontalLook;
         verticalSmoothing = verticalLook;
         isGrounded = true;
@@ -61,6 +63,8 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         AuxiliaryMovement();
+        Debug.DrawRay(transform.position, Vector3.down * jumpRay, Color.red);
+        Debug.DrawRay(transform.position, Vector3.forward * ladderRay, Color.green);
     }
 
     // Moves the player by a constant force with mass in a normalized direction given by wasd input
@@ -118,15 +122,11 @@ public class Player : MonoBehaviour
     }
 
     // Moves the player by a constant force ignoring its mass in a normalized direction given by wasd input
-    private void Dash(Vector2 direction)
+    private void Dash()
     {
         if (canDash)
         {
-            Vector3 moveDirection = rb.rotation * new Vector3(direction.x, 0f, direction.y).normalized;
-
             rb.AddForce(dash * mainCam.transform.forward, ForceMode.VelocityChange);
-            //rb.AddForce(dash * moveDirection, ForceMode.VelocityChange);
-            //rb.AddForce(dash / 10 * Vector3.up, ForceMode.VelocityChange);
             StartCoroutine(DashCooldown());
         }
     }

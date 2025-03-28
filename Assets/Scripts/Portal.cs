@@ -21,6 +21,7 @@ public class Portal : MonoBehaviour
 
     // This Portal Camera Reference (What will be displayed on target portal)
     public Camera portalCamera;
+    public Transform portalScreen;
     public bool hasAllVariables;
     public bool playerEnterPortal;
 
@@ -37,17 +38,14 @@ public class Portal : MonoBehaviour
     {
         if (hasAllVariables)
         {
+            PreventClipping();
             PositionCamera();
             OnTeleport();
-        }
-        else
-        {
-            CheckAllVariables();
         }
     }
 
     // Orients portal camera with respect to the player portals relative position and rotation
-    void PositionCamera()
+    private void PositionCamera()
     {
         Vector3 offset = player.transform.position - targetPortal.position;
         offset = transform.rotation * Quaternion.Inverse(targetPortal.rotation) * offset;
@@ -64,8 +62,19 @@ public class Portal : MonoBehaviour
         portalCamera.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
     }
 
+    private void PreventClipping()
+    {
+        float halfHeight = playerCamera.nearClipPlane * Mathf.Tan(playerCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        float halfWidth = halfHeight * playerCamera.aspect;
+        float distanceToNearClipPlane = new Vector3(halfWidth, halfHeight, playerCamera.nearClipPlane).magnitude;
+
+        bool camFacingPortal = Vector3.Dot(transform.forward, transform.position - playerCamera.transform.position ) < 0;
+        portalScreen.localScale = new Vector3(portalScreen.localScale.x, portalScreen.localScale.y, distanceToNearClipPlane);
+        portalScreen.localPosition = Vector3.forward * distanceToNearClipPlane * ((camFacingPortal) ? 0.5f : -0.5f);
+    }
+
     // Teleports the player and updates the player's rotation and velocity
-    void OnTeleport()
+    private void OnTeleport()
     {
         if (playerEnterPortal)
         {
@@ -87,21 +96,8 @@ public class Portal : MonoBehaviour
         }
     }
 
-    // Checks if the portal has target portal and player refereneces
-    void CheckAllVariables()
-    {
-        if (targetPortal != null && player != null)
-        {
-            hasAllVariables = true;
-        }
-        else
-        {
-            hasAllVariables = false;
-        } 
-    }
-
     // Modifies boolean to be true if player enters portal collider
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -110,7 +106,7 @@ public class Portal : MonoBehaviour
     }
 
     // Modifies boolean to be false if player leaves the portal collider
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
