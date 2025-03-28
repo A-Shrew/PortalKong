@@ -1,12 +1,10 @@
-using System;
 using UnityEngine.Events;
 using UnityEngine;
-using Unity.VisualScripting;
 
 public class InputManager : MonoBehaviour
 {
     public UnityEvent OnSpacePressed = new();
-    public UnityEvent OnMouseLeftPressed = new();
+    public UnityEvent<char> OnMousePressed = new();
     public UnityEvent OnMouseRightPressed = new();
     public UnityEvent<Vector2> OnShiftPressed = new();
     public UnityEvent<Vector2> OnMove = new();
@@ -14,12 +12,19 @@ public class InputManager : MonoBehaviour
 
     //public UnityEvent OnResetPressed = new UnityEvent();
 
-    void Update()
+    void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        Vector2 look = Vector2.zero;
+        if (Input.GetAxisRaw("Mouse X") != 0)
         {
-            OnSpacePressed?.Invoke();
+            look.x = Input.GetAxisRaw("Mouse X");
         }
+        if (Input.GetAxisRaw("Mouse Y") != 0)
+        {
+            look.y = Input.GetAxisRaw("Mouse Y");
+        }
+
+        OnLook?.Invoke(look);
 
         Vector2 input = Vector2.zero;
         if (Input.GetKey(KeyCode.A))
@@ -41,30 +46,23 @@ public class InputManager : MonoBehaviour
 
         OnMove?.Invoke(input);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnSpacePressed?.Invoke();
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             OnShiftPressed?.Invoke(input);
         }
 
-        Vector2 look = Vector2.zero;
-        if (Input.GetAxisRaw("Mouse X") != 0)
-        {
-            look.x = Input.GetAxisRaw("Mouse X");
-        }
-        if (Input.GetAxisRaw("Mouse Y") != 0)
-        {
-            look.y = Input.GetAxisRaw("Mouse Y");
-        }
-
-        OnLook?.Invoke(look);
-
         if (Input.GetMouseButton(0))
         {
-            OnMouseLeftPressed?.Invoke();
+            OnMousePressed?.Invoke('a');
         }
         if (Input.GetMouseButton(1))
         {
-            OnMouseRightPressed?.Invoke();
+            OnMousePressed?.Invoke('b');
         }
     }
 }
