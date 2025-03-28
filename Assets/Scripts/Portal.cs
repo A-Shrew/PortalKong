@@ -34,23 +34,25 @@ public class Portal : MonoBehaviour
     }
 
     // FixedUpdate is called every fixed framerate frame
-    void FixedUpdate()
+    void Update()
     {
         if (hasAllVariables)
         {
             PreventClipping();
-            PositionCamera();
+            PositionCamera(0);
             OnTeleport();
         }
     }
 
     // Orients portal camera with respect to the player portals relative position and rotation
-    private void PositionCamera()
+    private void PositionCamera(int depth)
     {
+        // Camera offset
         Vector3 offset = player.transform.position - targetPortal.position;
         offset = transform.rotation * Quaternion.Inverse(targetPortal.rotation) * offset;
         portalCamera.transform.position = transform.position - offset;
 
+        // Camera rotation
         float horizontalAngle = Vector3.SignedAngle(transform.forward,targetPortal.forward,Vector3.up);
         Quaternion horizontalRotation = Quaternion.AngleAxis(-horizontalAngle, Vector3.up);
 
@@ -60,6 +62,24 @@ public class Portal : MonoBehaviour
         Quaternion combinedRotation = horizontalRotation * verticalRotation;
         Vector3 direction = combinedRotation * -player.transform.forward;
         portalCamera.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+
+        // Clipping plane
+        Plane portalPlane = new(transform.forward, transform.position);
+        Matrix4x4 worldToCameraMatrix = portalCamera.worldToCameraMatrix;
+        Vector4 clipPlaneCameraSpace = CameraSpacePlane(portalCamera, portalPlane.normal, portalPlane.ClosestPointOnPlane(portalCamera.transform.position));
+        portalCamera.projectionMatrix = playerCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
+    }
+
+    // Clipping plane utility function
+    private Vector4 CameraSpacePlane(Camera cam, Vector3 normal, Vector3 position)
+    {
+        // Convert the portal plane from world space to camera space
+        Matrix4x4 matrix = cam.worldToCameraMatrix;
+        Vector3 cameraSpaceNormal = matrix.MultiplyVector(normal).normalized;
+        Vector3 cameraSpacePosition = matrix.MultiplyPoint(position);
+        float distance = -Vector3.Dot(cameraSpaceNormal, cameraSpacePosition);
+
+        return new Vector4(cameraSpaceNormal.x, cameraSpaceNormal.y, cameraSpaceNormal.z, distance);
     }
 
     private void PreventClipping()
