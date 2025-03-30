@@ -215,7 +215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: speed
-      value: 2.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: airDrag
@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: ladderSpeed
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: dashCooldown
@@ -271,6 +271,14 @@ PrefabInstance:
       objectReference: {fileID: 1692600478}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: portalCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: jumpBufferDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: ladderGrabDistance
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}

@@ -195,7 +195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1865843395821619740, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: near clip plane
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1865843395821619740, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -1245,6 +1245,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1904522616458947262, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
   m_PrefabInstance: {fileID: 34354404}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &629758123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1225748160178028932, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_Name
+      value: barrelSpawner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.298078
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321390729899861418, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3639931d6ed5c5b42bb55b1a3e5f0cc2, type: 3}
 --- !u!1 &698837420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,7 +2214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66bd4b94a225f14191c7386827cab53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrel: {fileID: 8381243325061580544, guid: c72dd534d9163654ba63b364a352bc5f, type: 3}
+  barrel: {fileID: 8490879466592519014, guid: 7be18171dae66fe42a58d68592ed568d, type: 3}
   spawnTime: 2
   destroyTime: 7
 --- !u!4 &1504113637
@@ -2930,7 +2987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6036222498942638343, guid: 5674e18beec37c44382a25b6048b7229, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.25
+      value: 2.15
       objectReference: {fileID: 0}
     - target: {fileID: 6036222498942638343, guid: 5674e18beec37c44382a25b6048b7229, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3592,3 +3649,4 @@ SceneRoots:
   - {fileID: 1819114698}
   - {fileID: 1504113637}
   - {fileID: 2043054899}
+  - {fileID: 629758123}
