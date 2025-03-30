@@ -93,6 +93,14 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: kbForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
       propertyPath: parentBarrel
       value: 
       objectReference: {fileID: 8490879466592519014}

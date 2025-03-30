@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem particlesB;
 
     [Header("Player Stats")]
+    [SerializeField] public int health;
     [SerializeField] private float speed;
     [SerializeField] private float ladderSpeed;
     [SerializeField] private float jump;
@@ -243,5 +244,20 @@ public class Player : MonoBehaviour
         mainCam.transform.localRotation = Quaternion.Euler(verticalLook, 0f, 0f);
 
         rb.linearVelocity = newRotation * (velocity.magnitude * Vector3.forward);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            //Player Death
+            //GameOver Code Here
+
+        }
+    }
+    public void TakeKnockback(Vector3 direction,float force)
+    {
+        rb.AddForce(force * direction,ForceMode.Impulse);
     }
 }
