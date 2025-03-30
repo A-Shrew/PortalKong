@@ -29,7 +29,7 @@ public class BarrellMovement : MonoBehaviour
             if (inAir)
             {
                 inAir = false;
-                rb.AddForce(force * parentBarrel.transform.right, ForceMode.Impulse);
+                rb.AddForce(force * parentBarrel.transform.right, ForceMode.VelocityChange);
             }
         }
 
@@ -39,6 +39,7 @@ public class BarrellMovement : MonoBehaviour
             Vector3 kbDirection = hit.transform.position - transform.position;
             playerScript.TakeDamage(damage);
             playerScript.TakeKnockback(kbDirection, kbForce);
+            Destroy(gameObject);
         }
     }
 
