@@ -5,27 +5,41 @@ using UnityEngine;
 public class BarrellMovement : MonoBehaviour
 {
     [SerializeField] private GameObject parentBarrel;
+    [SerializeField] private float force;
+    [SerializeField] private float kbForce;
+    [SerializeField] private int damage;
+
     private float angVel;
     private float angle;
+    private bool inAir;
+
     private Rigidbody rb;
-    [SerializeField] private float force;
-    bool inAir = true;
-    Vector3 intialRotation;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        inAir = true;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        GameObject hit = collision.gameObject;
+        if (hit.CompareTag("Ground"))
         {
             if (inAir)
             {
                 inAir = false;
-                rb.AddForce(force * parentBarrel.transform.right, ForceMode.Impulse);
+                rb.AddForce(force * parentBarrel.transform.right, ForceMode.VelocityChange);
             }
+        }
+
+        if (hit.CompareTag("Player"))
+        {
+            Player playerScript = hit.GetComponent<Player>();
+            Vector3 kbDirection = hit.transform.position - transform.position;
+            playerScript.TakeDamage(damage);
+            playerScript.TakeKnockback(kbDirection, kbForce);
+            Destroy(gameObject);
         }
     }
 

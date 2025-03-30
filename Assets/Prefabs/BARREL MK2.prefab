@@ -86,11 +86,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4331807102006263096, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
       propertyPath: force
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: kbForce
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
       propertyPath: parentBarrel
