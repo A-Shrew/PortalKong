@@ -319,6 +319,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5789754384160639110, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: bananaImages.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789754384160639110, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: 'bananaImages.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1990413813}
+    - target: {fileID: 5789754384160639110, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: 'bananaImages.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1536014125}
+    - target: {fileID: 5789754384160639110, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: 'bananaImages.Array.data[2]'
+      value: 
+      objectReference: {fileID: 720030712}
+    - target: {fileID: 5789754384160639110, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: 'bananaImages.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2018142017}
+    - target: {fileID: 5789754384160639110, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: 'bananaImages.Array.data[4]'
+      value: 
+      objectReference: {fileID: 550615629}
     - target: {fileID: 7629454955415702520, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: mouseSensitivity
       value: 7
