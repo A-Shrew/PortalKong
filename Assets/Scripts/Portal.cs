@@ -34,18 +34,19 @@ public class Portal : MonoBehaviour
     }
 
     // FixedUpdate is called every fixed framerate frame
-    void Update()
+
+    void LateUpdate()
     {
         if (hasAllVariables)
         {
             PreventClipping();
-            PositionCamera(0);
+            PositionCamera();
             OnTeleport();
-        }
+        }     
     }
 
     // Orients portal camera with respect to the player portals relative position and rotation
-    private void PositionCamera(int depth)
+    private void PositionCamera()
     {
         // Camera offset
         Vector3 offset = player.transform.position - targetPortal.position;
@@ -63,13 +64,13 @@ public class Portal : MonoBehaviour
         Vector3 direction = combinedRotation * -player.transform.forward;
         portalCamera.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
-        // Clipping plane
-        Plane portalPlane = new(transform.forward, transform.position);
-        Matrix4x4 worldToCameraMatrix = portalCamera.worldToCameraMatrix;
+        // Compute the clipping plane 
+        Plane portalPlane = new Plane(transform.forward, transform.position);
         Vector4 clipPlaneCameraSpace = CameraSpacePlane(portalCamera, portalPlane.normal, portalPlane.ClosestPointOnPlane(portalCamera.transform.position));
-        portalCamera.projectionMatrix = playerCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
-    }
 
+        // Apply the new projection matrix
+        portalCamera.projectionMatrix = playerCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
+}
     // Clipping plane utility function
     private Vector4 CameraSpacePlane(Camera cam, Vector3 normal, Vector3 position)
     {
@@ -88,7 +89,7 @@ public class Portal : MonoBehaviour
         float halfWidth = halfHeight * playerCamera.aspect;
         float distanceToNearClipPlane = new Vector3(halfWidth, halfHeight, playerCamera.nearClipPlane).magnitude;
 
-        bool camFacingPortal = Vector3.Dot(transform.forward, transform.position - playerCamera.transform.position ) < 0;
+        bool camFacingPortal = Vector3.Dot(transform.forward, transform.position - playerCamera.transform.position) < 0f;
         portalScreen.localScale = new Vector3(portalScreen.localScale.x, portalScreen.localScale.y, distanceToNearClipPlane);
         portalScreen.localPosition = Vector3.forward * distanceToNearClipPlane * ((camFacingPortal) ? 0.5f : -0.5f);
     }
@@ -102,15 +103,15 @@ public class Portal : MonoBehaviour
             Vector3 portalToPlayer = player.position - transform.position;
             float dotProduct = Vector3.Dot(transform.forward, portalToPlayer);
 
-            if (dotProduct < 0f)
+            if (dotProduct < 0.1f)
             {
-                player.position = targetPortalSpawn.position;
-
                 playerScript = player.GetComponent<Player>();
                 if (playerScript != null)
                 {
                     playerScript.SetRotationAndVelocity(rotation, playerScript.rb.linearVelocity);
                 }
+
+                player.position = targetPortalSpawn.position;
                 playerEnterPortal = false;
             }
         }
