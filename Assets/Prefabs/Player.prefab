@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5627501757030636900}
@@ -50,24 +50,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8b8010b47cfe641bd7ce39fecd8885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
+  mainCam: {fileID: 1865843395821619740}
   portalManager: {fileID: 0}
   inputManager: {fileID: 8138874392673867038}
-  particlesA: {fileID: 0}
-  particlesB: {fileID: 0}
+  particlesA: {fileID: 3042706870829770454, guid: 7d22692d70d9ea844ad609dc52afc0a2, type: 3}
+  particlesB: {fileID: 3042706870829770454, guid: 1612018fd050fee4eb0ce6fc9f6dd520, type: 3}
   health: 0
   speed: 4
-  ladderSpeed: 0
-  ladderGrabDistance: 0
-  jump: 10
-  jumpBufferDistance: 0
-  dash: 0
-  dashCooldown: 0
-  portalCooldown: 0
-  extraGravity: 0
-  airDrag: 0
-  airMultiplier: 0
-  mouseSense: 0
+  ladderSpeed: 2.5
+  ladderGrabDistance: 0.5
+  jump: 14
+  jumpBufferDistance: 0.2
+  dash: 15
+  dashCooldown: 2
+  portalCooldown: 0.5
+  extraGravity: 25
+  airDrag: 0.05
+  airMultiplier: 0.8
+  mouseSense: 5
   rotationSmoothTime: 0
   rb: {fileID: 0}
 --- !u!33 &4361698700105383599
@@ -130,7 +130,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904522616458947262}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: acfec7ac89dfd8e4eb7d871a1960fb7f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -228,7 +228,7 @@ Transform:
   m_GameObject: {fileID: 2679523067516231774}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -317,7 +317,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -348,15 +348,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.342
+      value: 0.339
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: -0.106
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.633
+      value: 0.676
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalRotation.w
@@ -389,6 +389,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_Name
       value: model
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.059
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.151
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
