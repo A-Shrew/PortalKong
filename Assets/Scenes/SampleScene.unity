@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 20eee9a4c58d2ce43abf73d5fe690764, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2390,6 +2390,8 @@ MonoBehaviour:
   player: {fileID: 575795666}
   prefabA: {fileID: 3503214843743973172, guid: 1d99c40626b85bc479114ad77ab975a3, type: 3}
   prefabB: {fileID: 886457940314363844, guid: bad4f5a11e609094cabd20148befa695, type: 3}
+  portalWallA: {fileID: 0}
+  portalWallB: {fileID: 0}
 --- !u!4 &1692600479
 Transform:
   m_ObjectHideFlags: 0
