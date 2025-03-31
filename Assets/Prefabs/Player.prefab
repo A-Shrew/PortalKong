@@ -58,8 +58,8 @@ MonoBehaviour:
   particlesA: {fileID: 3042706870829770454, guid: 7d22692d70d9ea844ad609dc52afc0a2, type: 3}
   particlesB: {fileID: 3042706870829770454, guid: 1612018fd050fee4eb0ce6fc9f6dd520, type: 3}
   health: 0
-  speed: 4
-  ladderSpeed: 2.5
+  speed: 5
+  ladderSpeed: 5
   ladderGrabDistance: 0.5
   jump: 14
   jumpBufferDistance: 0.2
