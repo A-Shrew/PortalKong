@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,9 +7,11 @@ public class Player : MonoBehaviour
     [Header("References")]
     public Camera mainCam;
     [SerializeField] private PortalManager portalManager;
+    [SerializeField] private Transform respawn;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private ParticleSystem particlesA;
     [SerializeField] private ParticleSystem particlesB;
+   
 
     [Header("Player Stats")]
     [SerializeField] public int health;
@@ -250,5 +253,16 @@ public class Player : MonoBehaviour
     public void TakeKnockback(Vector3 direction,float force)
     {
         rb.AddForce(force * direction,ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject hit = collision.gameObject;
+        if (hit.CompareTag("KillFloor"))
+        {
+            Player playerScript = hit.GetComponent<Player>();
+            TakeDamage(1);
+            transform.position = respawn.position;
+        }
     }
 }
