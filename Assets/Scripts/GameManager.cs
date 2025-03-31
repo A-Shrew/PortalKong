@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("DeathMenu");
     }
 
     // Loads the render textures into the cameras
