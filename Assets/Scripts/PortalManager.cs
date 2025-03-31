@@ -9,8 +9,8 @@ public class PortalManager : MonoBehaviour
 
     private Portal portalA;
     private Portal portalB;
-    private Collider portalWallA;
-    private Collider portalWallB;
+    public Collider portalWallA;
+    public Collider portalWallB;
     private GameObject[] portals = new GameObject[2];
 
     // Awake is called when the script instance is being loaded
@@ -49,9 +49,9 @@ public class PortalManager : MonoBehaviour
                 Destroy(portals[0]);
                 Destroy(portals[1]);
                 portalWallA.isTrigger = false;
-                portalWallB.isTrigger = false;
                 portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
                 portalWallA = wallCollider;
+                portalWallA.isTrigger = false;
             }
         }
         else if (portals[0] != null)
@@ -105,9 +105,9 @@ public class PortalManager : MonoBehaviour
                 Destroy(portals[0]);
                 Destroy(portals[1]);
                 portalWallB.isTrigger = false;
-                portalWallA.isTrigger = false;
                 portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
                 portalWallB = wallCollider;
+                portalWallB.isTrigger = false;
             }
         }
         else if (portals[1] != null)
