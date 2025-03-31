@@ -264,4 +264,12 @@ public class Player : MonoBehaviour
             transform.position = respawn.position;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Granny"))
+        {
+            GameManager.instance.PlayerWins();
+        }
+    }
 }

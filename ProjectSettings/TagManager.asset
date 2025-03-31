@@ -12,6 +12,7 @@ TagManager:
   - Portal
   - KillFloor
   - Barrel
+  - Granny
   layers:
   - Default
   - TransparentFX

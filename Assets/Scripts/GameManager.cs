@@ -23,9 +23,6 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
         timerActive = true;
         currentTime = 0;
     }
@@ -36,8 +33,16 @@ public class GameManager : MonoBehaviour
         if (timerActive)
         {
             currentTime += Time.deltaTime;
+            PlayerPrefs.SetFloat("timer", currentTime);
             currentTimeText.text = currentTime.ToString("n2");
         }
+    }
+
+    public void PlayerWins()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("VictoryMenu");
     }
 
     public void PlayerDies()
