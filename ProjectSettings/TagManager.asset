@@ -11,6 +11,8 @@ TagManager:
   - Ladder
   - Portal
   - KillFloor
+  - Barrel
+  - Granny
   layers:
   - Default
   - TransparentFX

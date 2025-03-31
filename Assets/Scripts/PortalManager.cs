@@ -10,8 +10,8 @@ public class PortalManager : MonoBehaviour
 
     private Portal portalA;
     private Portal portalB;
-    public Collider portalWallA;
-    public Collider portalWallB;
+    private Collider portalWallA;
+    private Collider portalWallB;
     private GameObject[] portals = new GameObject[2];
 
     // Awake is called when the script instance is being loaded

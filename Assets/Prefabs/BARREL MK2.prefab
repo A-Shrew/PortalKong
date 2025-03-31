@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6680337061369559322}
   m_Layer: 0
   m_Name: BARREL MK2
-  m_TagString: Untagged
+  m_TagString: Barrel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,6 +43,10 @@ PrefabInstance:
     - target: {fileID: 245159010411854377, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
       propertyPath: m_Name
       value: BarrelModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 245159010411854377, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: m_TagString
+      value: Barrel
       objectReference: {fileID: 0}
     - target: {fileID: 589173849789423763, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
       propertyPath: m_LocalPosition.x
@@ -88,6 +92,14 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4404160459982473592, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: m_TagString
+      value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266460621537970256, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: m_TagString
+      value: Barrel
+      objectReference: {fileID: 0}
     - target: {fileID: 6343230543862900577, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
       propertyPath: force
       value: 7
@@ -104,6 +116,10 @@ PrefabInstance:
       propertyPath: parentBarrel
       value: 
       objectReference: {fileID: 8490879466592519014}
+    - target: {fileID: 6600924768424360084, guid: d036242eaeaeecb49a46938048d1fd16, type: 3}
+      propertyPath: m_TagString
+      value: Barrel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
