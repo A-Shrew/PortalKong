@@ -58,7 +58,7 @@ MonoBehaviour:
   particlesA: {fileID: 3042706870829770454, guid: 7d22692d70d9ea844ad609dc52afc0a2, type: 3}
   particlesB: {fileID: 3042706870829770454, guid: 1612018fd050fee4eb0ce6fc9f6dd520, type: 3}
   health: 0
-  speed: 5
+  speed: 8
   ladderSpeed: 5
   ladderGrabDistance: 0.5
   jump: 14
@@ -68,7 +68,7 @@ MonoBehaviour:
   portalCooldown: 0.5
   extraGravity: 25
   airDrag: 0.05
-  airMultiplier: 0.8
+  airMultiplier: 1
   mouseSense: 5
   rotationSmoothTime: 0
   rb: {fileID: 0}
