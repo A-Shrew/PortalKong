@@ -1,8 +1,12 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public Camera cameraA;
     public Camera cameraB;
     public Material cameraMatA;
@@ -15,6 +19,11 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
         timerActive = true;
@@ -29,6 +38,13 @@ public class GameManager : MonoBehaviour
             currentTime += Time.deltaTime;
             currentTimeText.text = currentTime.ToString("n2");
         }
+    }
+
+    public void PlayerDies()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Loads the render textures into the cameras

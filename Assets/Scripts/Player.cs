@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -245,9 +246,7 @@ public class Player : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            //Player Death
-            //GameOver Code Here
-
+            GameManager.instance.PlayerDies();
         }
     }
     public void TakeKnockback(Vector3 direction,float force)
