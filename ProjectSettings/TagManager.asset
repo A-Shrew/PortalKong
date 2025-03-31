@@ -10,6 +10,7 @@ TagManager:
   - PortalWall
   - Ladder
   - Portal
+  - KillFloor
   layers:
   - Default
   - TransparentFX
