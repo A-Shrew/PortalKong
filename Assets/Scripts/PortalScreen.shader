@@ -13,8 +13,9 @@ Shader "Unlit/PortalScreen"
 		Lighting Off
 		Cull Off
 		ZWrite On
-		ZTest Less
+		ZTest LEqual
 		
+		Blend Off
 		Fog{ Mode Off }
 
 		Pass

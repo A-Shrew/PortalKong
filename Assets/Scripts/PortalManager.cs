@@ -28,6 +28,8 @@ public class PortalManager : MonoBehaviour
         {
             portalA.hasAllVariables = true;
             portalB.hasAllVariables = true;
+            portalWallA.isTrigger = true;
+            portalWallB.isTrigger = true;
         }
         else
         {
@@ -58,6 +60,7 @@ public class PortalManager : MonoBehaviour
                 Destroy(portals[0]);
                 Destroy(portals[1]);
                 portalWallA.isTrigger = false;
+                portalWallB.isTrigger = false;
                 portals[0] = Instantiate(prefabA, wall.transform.position, wall.transform.rotation);
                 portalWallA = wallCollider;
                 portalWallA.isTrigger = false;
@@ -107,6 +110,7 @@ public class PortalManager : MonoBehaviour
             {
                 Destroy(portals[1]);
                 portalWallB.isTrigger = false;
+                portalWallA.isTrigger = false;
                 portals[1] = Instantiate(prefabB, wall.transform.position, wall.transform.rotation);
                 portalWallB = wallCollider;
             }
@@ -178,9 +182,6 @@ public class PortalManager : MonoBehaviour
 
             portalA.portalScreen = portals[1].GetComponent<Transform>().GetChild(1).transform;
             portalB.portalScreen = portals[0].GetComponent<Transform>().GetChild(1).transform;
-
-            portalWallA.isTrigger = true;
-            portalWallB.isTrigger = true;
         }
     }
 

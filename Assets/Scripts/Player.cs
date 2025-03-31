@@ -32,10 +32,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float rotationSmoothTime;
     private float horizontalLook;
     private float verticalLook;
-    private float horizontalSmoothing;
-    private float verticalSmoothing;
-    private float xSmoothReference;
-    private float ySmoothReference;
 
     //Player Stuff
     public Rigidbody rb;
@@ -53,8 +49,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         jumpRay = transform.localScale.y + jumpBufferDistance;
         ladderRay = transform.localScale.x/2 + ladderGrabDistance;
-        horizontalSmoothing = horizontalLook;
-        verticalSmoothing = verticalLook;
         isGrounded = true;
         canDash = true;
         canShootPortal = true;
@@ -98,11 +92,8 @@ public class Player : MonoBehaviour
         verticalLook = (verticalLook + 180) % 360 - 180;
         verticalLook = Mathf.Clamp(verticalLook, -90f, 90f);
 
-        horizontalSmoothing = Mathf.SmoothDampAngle(horizontalSmoothing, horizontalLook, ref xSmoothReference, rotationSmoothTime);
-        verticalSmoothing = Mathf.SmoothDampAngle(verticalSmoothing, verticalLook, ref ySmoothReference, rotationSmoothTime);
-
-        rb.MoveRotation(Quaternion.Euler(Vector3.up * horizontalSmoothing));
-        mainCam.transform.localEulerAngles = Vector3.right * verticalSmoothing;
+        rb.MoveRotation(Quaternion.Euler(Vector3.up * horizontalLook));
+        mainCam.transform.localEulerAngles = Vector3.right * verticalLook;
     }
 
     // Moves the player by a constant force ignoring its mass upwards if grounded or if the player has a double jump
@@ -239,10 +230,9 @@ public class Player : MonoBehaviour
     {
         Vector3 targetEuler = newRotation.eulerAngles;
         horizontalLook = targetEuler.y;
-        rb.rotation = Quaternion.Euler(0f, horizontalLook, 0f);
-
         verticalLook = targetEuler.x;
-        mainCam.transform.localRotation = Quaternion.Euler(verticalLook, 0f, 0f);
+        rb.MoveRotation(Quaternion.Euler(Vector3.up * horizontalLook));
+        mainCam.transform.localEulerAngles = Vector3.right * verticalLook;
 
         rb.linearVelocity = newRotation * (velocity.magnitude * Vector3.forward);
     }
