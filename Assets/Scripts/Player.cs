@@ -246,6 +246,7 @@ public class Player : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            SoundManager.instance.PlayAudioClip("PlayerDeathSound");
             GameManager.instance.PlayerDies();
         }
     }
@@ -262,6 +263,7 @@ public class Player : MonoBehaviour
             Player playerScript = hit.GetComponent<Player>();
             TakeDamage(1);
             transform.position = respawn.position;
+            //PlayFalling off map sound
         }
     }
 
