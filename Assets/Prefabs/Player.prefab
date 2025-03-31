@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5627501757030636900}
@@ -58,7 +58,9 @@ MonoBehaviour:
   health: 0
   speed: 4
   ladderSpeed: 0
+  ladderGrabDistance: 0
   jump: 10
+  jumpBufferDistance: 0
   dash: 0
   dashCooldown: 0
   portalCooldown: 0
@@ -186,13 +188,10 @@ MonoBehaviour:
   OnSpacePressed:
     m_PersistentCalls:
       m_Calls: []
-  OnMousePressed:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMouseRightPressed:
-    m_PersistentCalls:
-      m_Calls: []
   OnShiftPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMousePressed:
     m_PersistentCalls:
       m_Calls: []
   OnMove:
@@ -229,7 +228,7 @@ Transform:
   m_GameObject: {fileID: 2679523067516231774}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -353,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.243
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5df1ef40833fc894d8b42119c15a4f37, type: 3}
       propertyPath: m_LocalPosition.z

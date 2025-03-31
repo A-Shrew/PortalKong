@@ -21,6 +21,7 @@ public class Portal : MonoBehaviour
 
     // This Portal Camera Reference (What will be displayed on target portal)
     public Camera portalCamera;
+    public Transform portalScreen;
     public bool hasAllVariables;
     public bool playerEnterPortal;
 
@@ -33,26 +34,25 @@ public class Portal : MonoBehaviour
     }
 
     // FixedUpdate is called every fixed framerate frame
-    void FixedUpdate()
+    void Update()
     {
         if (hasAllVariables)
         {
-            PositionCamera();
+            PreventClipping();
+            PositionCamera(0);
             OnTeleport();
-        }
-        else
-        {
-            CheckAllVariables();
         }
     }
 
     // Orients portal camera with respect to the player portals relative position and rotation
-    void PositionCamera()
+    private void PositionCamera(int depth)
     {
+        // Camera offset
         Vector3 offset = player.transform.position - targetPortal.position;
         offset = transform.rotation * Quaternion.Inverse(targetPortal.rotation) * offset;
         portalCamera.transform.position = transform.position - offset;
 
+        // Camera rotation
         float horizontalAngle = Vector3.SignedAngle(transform.forward,targetPortal.forward,Vector3.up);
         Quaternion horizontalRotation = Quaternion.AngleAxis(-horizontalAngle, Vector3.up);
 
@@ -62,10 +62,39 @@ public class Portal : MonoBehaviour
         Quaternion combinedRotation = horizontalRotation * verticalRotation;
         Vector3 direction = combinedRotation * -player.transform.forward;
         portalCamera.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+
+        // Clipping plane
+        Plane portalPlane = new(transform.forward, transform.position);
+        Matrix4x4 worldToCameraMatrix = portalCamera.worldToCameraMatrix;
+        Vector4 clipPlaneCameraSpace = CameraSpacePlane(portalCamera, portalPlane.normal, portalPlane.ClosestPointOnPlane(portalCamera.transform.position));
+        portalCamera.projectionMatrix = playerCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
+    }
+
+    // Clipping plane utility function
+    private Vector4 CameraSpacePlane(Camera cam, Vector3 normal, Vector3 position)
+    {
+        // Convert the portal plane from world space to camera space
+        Matrix4x4 matrix = cam.worldToCameraMatrix;
+        Vector3 cameraSpaceNormal = matrix.MultiplyVector(normal).normalized;
+        Vector3 cameraSpacePosition = matrix.MultiplyPoint(position);
+        float distance = -Vector3.Dot(cameraSpaceNormal, cameraSpacePosition);
+
+        return new Vector4(cameraSpaceNormal.x, cameraSpaceNormal.y, cameraSpaceNormal.z, distance);
+    }
+
+    private void PreventClipping()
+    {
+        float halfHeight = playerCamera.nearClipPlane * Mathf.Tan(playerCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        float halfWidth = halfHeight * playerCamera.aspect;
+        float distanceToNearClipPlane = new Vector3(halfWidth, halfHeight, playerCamera.nearClipPlane).magnitude;
+
+        bool camFacingPortal = Vector3.Dot(transform.forward, transform.position - playerCamera.transform.position ) < 0;
+        portalScreen.localScale = new Vector3(portalScreen.localScale.x, portalScreen.localScale.y, distanceToNearClipPlane);
+        portalScreen.localPosition = Vector3.forward * distanceToNearClipPlane * ((camFacingPortal) ? 0.5f : -0.5f);
     }
 
     // Teleports the player and updates the player's rotation and velocity
-    void OnTeleport()
+    private void OnTeleport()
     {
         if (playerEnterPortal)
         {
@@ -87,21 +116,8 @@ public class Portal : MonoBehaviour
         }
     }
 
-    // Checks if the portal has target portal and player refereneces
-    void CheckAllVariables()
-    {
-        if (targetPortal != null && player != null)
-        {
-            hasAllVariables = true;
-        }
-        else
-        {
-            hasAllVariables = false;
-        } 
-    }
-
     // Modifies boolean to be true if player enters portal collider
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -110,7 +126,7 @@ public class Portal : MonoBehaviour
     }
 
     // Modifies boolean to be false if player leaves the portal collider
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {

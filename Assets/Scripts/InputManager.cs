@@ -4,15 +4,13 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public UnityEvent OnSpacePressed = new();
+    public UnityEvent OnShiftPressed = new();
     public UnityEvent<char> OnMousePressed = new();
-    public UnityEvent OnMouseRightPressed = new();
-    public UnityEvent<Vector2> OnShiftPressed = new();
     public UnityEvent<Vector2> OnMove = new();
     public UnityEvent<Vector2> OnLook = new();
 
     //public UnityEvent OnResetPressed = new UnityEvent();
-
-    void LateUpdate()
+    private void LateUpdate()
     {
         Vector2 look = Vector2.zero;
         if (Input.GetAxisRaw("Mouse X") != 0)
@@ -23,9 +21,28 @@ public class InputManager : MonoBehaviour
         {
             look.y = Input.GetAxisRaw("Mouse Y");
         }
-
         OnLook?.Invoke(look);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnSpacePressed?.Invoke();
+        }
+        if (Input.GetMouseButton(0))
+        {
+            OnMousePressed?.Invoke('a');
+        }
+        if (Input.GetMouseButton(1))
+        {
+            OnMousePressed?.Invoke('b');
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            OnShiftPressed?.Invoke();
+        }
+
+    }
+    void FixedUpdate()
+    {
         Vector2 input = Vector2.zero;
         if (Input.GetKey(KeyCode.A))
         {
@@ -43,26 +60,6 @@ public class InputManager : MonoBehaviour
         {
             input += Vector2.down;
         }
-
         OnMove?.Invoke(input);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnSpacePressed?.Invoke();
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            OnShiftPressed?.Invoke(input);
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            OnMousePressed?.Invoke('a');
-        }
-        if (Input.GetMouseButton(1))
-        {
-            OnMousePressed?.Invoke('b');
-        }
     }
 }
