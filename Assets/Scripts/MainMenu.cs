@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
-        SceneManager.LoadScene("LevelOneScene"); 
+        SceneManager.LoadScene("LevelThreeScene"); 
     }
 
     public void NextLevel()
