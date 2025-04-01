@@ -20,6 +20,13 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("LevelOneScene"); 
     }
 
+    public void NextLevel()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+        SceneManager.LoadScene("LevelThreeScene");
+    }
+
     public void PlayTutorial()
     {
         Cursor.lockState = CursorLockMode.Confined;
