@@ -1413,6 +1413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1239309362}
   inputManager: {fileID: 0}
+  playerScript: {fileID: 0}
 --- !u!1001 &1938413849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1473,6 +1474,10 @@ PrefabInstance:
       propertyPath: respawn
       value: 
       objectReference: {fileID: 1582968006}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: dashText
+      value: 
+      objectReference: {fileID: 1640487133}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: maxSpeed
       value: 10

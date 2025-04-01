@@ -200,6 +200,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1086508254}
     - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+      propertyPath: dashText
+      value: 
+      objectReference: {fileID: 1095960442704949440}
+    - target: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
       propertyPath: maxSpeed
       value: 10
       objectReference: {fileID: 0}
@@ -618,6 +622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1624523259}
   inputManager: {fileID: 0}
+  playerScript: {fileID: 0}
 --- !u!114 &720030712 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3937263140646623363, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
