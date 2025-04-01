@@ -42,9 +42,11 @@ public class Player : MonoBehaviour
     private float jumpRay;
     private float ladderRay;
     private bool isGrounded;
-    private bool canDash;
+    public bool canDash;
+    public float dashTimer;
     private bool canShootPortal;
     private bool hasDoubleJump;
+    private bool canLook = true;
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -91,6 +93,8 @@ public class Player : MonoBehaviour
     // Changes camera and player rotation from mouse movements
     private void Look(Vector2 lookInput)
     {
+        if (!canLook) return;
+
         horizontalLook += lookInput.x * mouseSense;
         verticalLook -= lookInput.y * mouseSense;
         verticalLook = (verticalLook + 180) % 360 - 180;
@@ -98,6 +102,11 @@ public class Player : MonoBehaviour
 
         rb.MoveRotation(Quaternion.Euler(Vector3.up * horizontalLook));
         mainCam.transform.localEulerAngles = Vector3.right * verticalLook;
+    }
+
+    public void SetCanLook(bool value)
+    {
+        canLook = value;
     }
 
     // Moves the player by a constant force ignoring its mass upwards if grounded or if the player has a double jump
@@ -215,7 +224,7 @@ public class Player : MonoBehaviour
                     Instantiate(particlesB, hits[i].transform);
                     StartCoroutine(PortalCooldown());
                 }
-                SoundManager.instance.PlayAudioClip("ShootPortalGun");
+                SoundManager.instance.PlayAudioClip("PortalGunSound");
                 break;
             }
         }
@@ -246,6 +255,7 @@ public class Player : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            SoundManager.instance.PlayAudioClip("PlayerDeathSound");
             GameManager.instance.PlayerDies();
         }
     }
@@ -262,6 +272,7 @@ public class Player : MonoBehaviour
             Player playerScript = hit.GetComponent<Player>();
             TakeDamage(1);
             transform.position = respawn.position;
+            SoundManager.instance.PlayAudioClip("KillFloorSound");
         }
     }
 
