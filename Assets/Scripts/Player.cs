@@ -215,7 +215,7 @@ public class Player : MonoBehaviour
                     Instantiate(particlesB, hits[i].transform);
                     StartCoroutine(PortalCooldown());
                 }
-                SoundManager.instance.PlayAudioClip("ShootPortalGun");
+                SoundManager.instance.PlayAudioClip("PortalGunSound");
                 break;
             }
         }
@@ -263,7 +263,7 @@ public class Player : MonoBehaviour
             Player playerScript = hit.GetComponent<Player>();
             TakeDamage(1);
             transform.position = respawn.position;
-            //PlayFalling off map sound
+            SoundManager.instance.PlayAudioClip("KillFloorSound");
         }
     }
 
