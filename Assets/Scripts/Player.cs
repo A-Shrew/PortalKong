@@ -280,11 +280,11 @@ public class Player : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "TutorialScene" && other.CompareTag("Granny"))
         {
-            SceneManager.LoadScene("LevelOneScene");
+            GameManager.instance.PlayerWins();
         }
         else if (SceneManager.GetActiveScene().name == "LevelOneScene" && other.CompareTag("Granny"))
         {
-            SceneManager.LoadScene("LevelThreeScene");
+            GameManager.instance.PlayerWins(); 
         }
         else if (SceneManager.GetActiveScene().name == "LevelThreeScene" && other.CompareTag("Granny"))
         {
