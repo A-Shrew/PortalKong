@@ -42,7 +42,8 @@ public class Player : MonoBehaviour
     private float jumpRay;
     private float ladderRay;
     private bool isGrounded;
-    private bool canDash;
+    public bool canDash;
+    public float dashTimer;
     private bool canShootPortal;
     private bool hasDoubleJump;
 

@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public Material cameraMatB;
 
     [SerializeField] private TextMeshProUGUI currentTimeText;
+    [SerializeField] private TextMeshProUGUI dashCooldownTime;
+    [SerializeField] private Player player;
+
     private float currentTime;
     private bool timerActive;
 
@@ -35,6 +38,15 @@ public class GameManager : MonoBehaviour
             currentTime += Time.deltaTime;
             PlayerPrefs.SetFloat("timer", currentTime);
             currentTimeText.text = currentTime.ToString("n2");
+        }
+
+        if (player.canDash)
+        {
+            dashCooldownTime.text = "Dash:Ready";
+        }
+        else
+        {
+            dashCooldownTime.text = "Dash:Cooldown";
         }
     }
 

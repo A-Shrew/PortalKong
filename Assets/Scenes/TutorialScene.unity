@@ -269,6 +269,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 529422528026682803, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3366971749375554711, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -348,6 +352,14 @@ PrefabInstance:
     - target: {fileID: 3366971749375554711, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517945549812167106, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517945549812167106, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 20.6
       objectReference: {fileID: 0}
     - target: {fileID: 3716236408873016669, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
       propertyPath: m_Name
@@ -729,6 +741,17 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &1640487133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 529422528026682803, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
+  m_PrefabInstance: {fileID: 1340914344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1938413849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -959,6 +982,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1904522616458947262, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
   m_PrefabInstance: {fileID: 1938413849}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2018117845 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3397751669454105162, guid: ae77f1514d261f74cba80ce38bd1aa81, type: 3}
+  m_PrefabInstance: {fileID: 1938413849}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018117839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8b8010b47cfe641bd7ce39fecd8885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2113927227 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7519294772251874559, guid: 2084bcde873f52f4a91747ab86fd32c6, type: 3}
@@ -1059,9 +1093,17 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 3611009738473607846, guid: c7424fc642a32de4c844531a5db207e4, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2018117845}
+    - target: {fileID: 3611009738473607846, guid: c7424fc642a32de4c844531a5db207e4, type: 3}
       propertyPath: currentTimeText
       value: 
       objectReference: {fileID: 2113927227}
+    - target: {fileID: 3611009738473607846, guid: c7424fc642a32de4c844531a5db207e4, type: 3}
+      propertyPath: dashCooldownTime
+      value: 
+      objectReference: {fileID: 1640487133}
     - target: {fileID: 8332283560593553389, guid: c7424fc642a32de4c844531a5db207e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.507954
