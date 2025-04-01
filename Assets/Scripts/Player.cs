@@ -284,7 +284,7 @@ public class Player : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "LevelOneScene" && other.CompareTag("Granny"))
         {
-            Gamemanager.instance.PlayerWins(); 
+            GameManager.instance.PlayerWins(); 
         }
         else if (SceneManager.GetActiveScene().name == "LevelThreeScene" && other.CompareTag("Granny"))
         {

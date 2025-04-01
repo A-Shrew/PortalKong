@@ -5,6 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI; // Assign the UI panel in the Inspector
     public InputManager inputManager; // Reference to InputManager script
+    public MonoBehaviour playerLookScript; // Reference to camera movement script (e.g., MouseLook or FirstPersonController)
 
     private bool isPaused = false;
 
@@ -35,6 +36,15 @@ public class PauseMenu : MonoBehaviour
         {
             inputManager.enabled = true;
         }
+
+        // Re-enable player camera movement
+        if (playerLookScript != null)
+        {
+            playerLookScript.enabled = true;
+        }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void PauseGame()
@@ -48,6 +58,13 @@ public class PauseMenu : MonoBehaviour
         {
             inputManager.enabled = false;
         }
+
+        // Disable player camera movement
+        if (playerLookScript != null)
+        {
+            playerLookScript.enabled = false;
+        }
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
