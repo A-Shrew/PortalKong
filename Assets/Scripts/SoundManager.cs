@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,16 +19,26 @@ public class SoundManager : MonoBehaviour
         public List<AudioClip> audioClips;
     }
 
+    void Awake()
+    {
+        InitializeLibrary();
+        PlayAudioClip("BackgroundMusic");
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+
         }
-        InitializeLibrary();
-        PlayAudioClip("BackgroundMusic");
+        else
+        {
+            this.slider = GameObject.Find("Canvas").GetComponentInChildren<Slider>();
+            Destroy(gameObject);
+        }
     }
 
     private void InitializeLibrary()

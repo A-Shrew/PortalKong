@@ -11,8 +11,10 @@ public class VolumeSlider : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameObject soundManager = GameObject.Find("SoundManager");
+        audioSource = soundManager.GetComponentInChildren<AudioSource>();
         volumeText.text = "Volume: ";
-        audioSource.volume = 0.01f;
+        audioSource.volume = 0.1f;
     }
 
     public void OnSliderUpdate(float value)
