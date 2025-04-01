@@ -28,6 +28,8 @@ public class TutorialPopup : MonoBehaviour
 
     public void OnOkButtonPressed()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         tutorialPanel.SetActive(false);
         hudCanvas.SetActive(true); // Show the HUD when tutorial is dismissed
 
