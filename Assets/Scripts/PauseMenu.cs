@@ -5,6 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI; // Assign the UI panel in the Inspector
     public InputManager inputManager; // Reference to InputManager script
+    public Player playerScript; // Reference to Player script
 
     private bool isPaused = false;
 
@@ -30,11 +31,13 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
 
-        // Re-enable input processing
-        if (inputManager != null)
-        {
-            inputManager.enabled = true;
-        }
+        // Re-enable player script
+        if (playerScript != null) playerScript.enabled = true;
+        if (inputManager != null) inputManager.enabled = true;
+
+        // Lock cursor for gameplay
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void PauseGame()
@@ -43,11 +46,11 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
 
-        // Disable input processing
-        if (inputManager != null)
-        {
-            inputManager.enabled = false;
-        }
+        // Disable player script
+        if (playerScript != null) playerScript.enabled = false;
+        if (inputManager != null) inputManager.enabled = false;
+
+        // Unlock cursor for menu navigation
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

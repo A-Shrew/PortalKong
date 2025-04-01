@@ -2,6 +2,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
     private bool canShootPortal;
     private bool hasDoubleJump;
     private bool canLook = true;
+    public TMP_Text dashText;
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -141,9 +143,21 @@ public class Player : MonoBehaviour
     {
         canDash = false;
 
+        if (dashText != null)
+        {
+            dashText.color = Color.red;  
+            dashText.text = "Dash: Cooldown"; 
+        }
+
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
+
+        if (dashText != null)
+        {
+            dashText.color = Color.white; 
+            dashText.text = "Dash: Ready";
+        }
     }
 
     // Extra physics calculations for player movement
@@ -280,11 +294,11 @@ public class Player : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "TutorialScene" && other.CompareTag("Granny"))
         {
-            SceneManager.LoadScene("LevelOneScene");
+            GameManager.instance.PlayerWins();
         }
         else if (SceneManager.GetActiveScene().name == "LevelOneScene" && other.CompareTag("Granny"))
         {
-            SceneManager.LoadScene("LevelThreeScene");
+            GameManager.instance.PlayerWins(); 
         }
         else if (SceneManager.GetActiveScene().name == "LevelThreeScene" && other.CompareTag("Granny"))
         {
