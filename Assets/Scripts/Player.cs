@@ -278,9 +278,21 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Granny"))
+        /* if (other.CompareTag("Granny"))
         {
             GameManager.instance.PlayerWins();
+        } */
+        if (SceneManager.GetActiveScene().name == "LevelThreeScene")
+        {
+            GameManager.instance.PlayerWins();
+        }
+        else if (SceneManager.GetActiveScene().name == "TutorialScene")
+        {
+            SceneManager.LoadScene("LevelOneScene");
+        }
+        else if (SceneManager.GetActiveScene().name == "LevelOneScene")
+        {
+            SceneManager.LoadScene("LevelThreeScene");
         }
     }
 }
