@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     public float dashTimer;
     private bool canShootPortal;
     private bool hasDoubleJump;
+    private bool canLook = true;
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -92,6 +93,8 @@ public class Player : MonoBehaviour
     // Changes camera and player rotation from mouse movements
     private void Look(Vector2 lookInput)
     {
+        if (!canLook) return;
+
         horizontalLook += lookInput.x * mouseSense;
         verticalLook -= lookInput.y * mouseSense;
         verticalLook = (verticalLook + 180) % 360 - 180;
@@ -99,6 +102,11 @@ public class Player : MonoBehaviour
 
         rb.MoveRotation(Quaternion.Euler(Vector3.up * horizontalLook));
         mainCam.transform.localEulerAngles = Vector3.right * verticalLook;
+    }
+
+    public void SetCanLook(bool value)
+    {
+        canLook = value;
     }
 
     // Moves the player by a constant force ignoring its mass upwards if grounded or if the player has a double jump
