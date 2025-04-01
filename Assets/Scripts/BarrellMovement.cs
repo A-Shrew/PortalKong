@@ -39,6 +39,7 @@ public class BarrellMovement : MonoBehaviour
             Vector3 kbDirection = hit.transform.position - transform.position;
             playerScript.TakeDamage(damage);
             playerScript.TakeKnockback(kbDirection, kbForce);
+            SoundManager.instance.PlayAudioClip("BarrelHitSound");
             Destroy(gameObject);
         }
     }
