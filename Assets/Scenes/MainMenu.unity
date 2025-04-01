@@ -651,6 +651,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1355108894315415335, guid: cffdaccf37bc75f4198395299b315192, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 83.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717253630994795918, guid: cffdaccf37bc75f4198395299b315192, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.333315
+      objectReference: {fileID: 0}
     - target: {fileID: 3131118084158050859, guid: cffdaccf37bc75f4198395299b315192, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -743,6 +751,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1988417422}
+    - target: {fileID: 7995120785292151575, guid: cffdaccf37bc75f4198395299b315192, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995120785292151575, guid: cffdaccf37bc75f4198395299b315192, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995120785292151575, guid: cffdaccf37bc75f4198395299b315192, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9104253354944018085, guid: cffdaccf37bc75f4198395299b315192, type: 3}
       propertyPath: m_Name
       value: static title
