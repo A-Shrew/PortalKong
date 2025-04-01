@@ -48,6 +48,8 @@ public class PauseMenu : MonoBehaviour
         {
             inputManager.enabled = false;
         }
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void QuitToMainMenu()
