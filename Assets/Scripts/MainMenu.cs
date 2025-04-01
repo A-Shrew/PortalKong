@@ -24,13 +24,11 @@ public class MainMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
-        SceneManager.LoadScene("LevelThreeScene");
+        SceneManager.LoadScene("LevelOneScene");
     }
 
     public void PlayTutorial()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
         SceneManager.LoadScene("TutorialScene");
     }
 
