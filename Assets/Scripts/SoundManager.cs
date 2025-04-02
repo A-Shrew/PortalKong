@@ -1,16 +1,13 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
     [SerializeField] private SoundGroup[] soundGroups;
-    private Dictionary<string, List<AudioClip>> soundLibrary;
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private Slider slider;
+    private Dictionary<string, List<AudioClip>> soundLibrary;
 
     [System.Serializable]
     public struct SoundGroup
@@ -32,11 +29,9 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-
         }
         else
         {
-            this.slider = GameObject.Find("Canvas").GetComponentInChildren<Slider>();
             Destroy(gameObject);
         }
     }

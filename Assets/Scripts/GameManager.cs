@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     public Material cameraMatB;
 
     [SerializeField] private TextMeshProUGUI currentTimeText;
-    [SerializeField] private TextMeshProUGUI dashCooldownTime;
+    [SerializeField] private TextMeshProUGUI dashText;
+    [SerializeField] private TextMeshProUGUI slowTimeText;
     [SerializeField] private Player player;
 
     private float currentTime;
@@ -33,6 +34,11 @@ public class GameManager : MonoBehaviour
     // Update is called every frame
     void Update()
     {
+        UpdateTextUI();
+    }
+
+    private void UpdateTextUI()
+    {
         if (timerActive)
         {
             currentTime += Time.deltaTime;
@@ -42,11 +48,24 @@ public class GameManager : MonoBehaviour
 
         if (player.canDash)
         {
-            dashCooldownTime.text = "Dash:Ready";
+            dashText.color = Color.green;
+            dashText.text = "Dash:Ready";
         }
         else
         {
-            dashCooldownTime.text = "Dash:Cooldown";
+            dashText.color = Color.red;
+            dashText.text = "Dash:Cooldown";
+        }
+
+        if (player.canSlowTime)
+        {
+            slowTimeText.color = Color.green;
+            slowTimeText.text = "SlowTime:Ready";
+        }
+        else
+        {
+            slowTimeText.color = Color.red;
+            slowTimeText.text = "SlowTime:Cooldown";
         }
     }
 

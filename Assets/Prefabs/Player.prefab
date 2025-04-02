@@ -57,7 +57,7 @@ MonoBehaviour:
   inputManager: {fileID: 8138874392673867038}
   particlesA: {fileID: 3042706870829770454, guid: 7d22692d70d9ea844ad609dc52afc0a2, type: 3}
   particlesB: {fileID: 3042706870829770454, guid: 1612018fd050fee4eb0ce6fc9f6dd520, type: 3}
-  health: 0
+  health: 5
   speed: 8
   ladderSpeed: 5
   ladderGrabDistance: 0.5
@@ -66,12 +66,15 @@ MonoBehaviour:
   dash: 15
   dashCooldown: 2
   portalCooldown: 0.5
+  slowTimeCooldown: 5
   extraGravity: 25
   airDrag: 0.05
   airMultiplier: 1
   mouseSense: 5
   rotationSmoothTime: 0
   rb: {fileID: 0}
+  canDash: 0
+  canSlowTime: 0
 --- !u!33 &4361698700105383599
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -188,6 +191,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnSpacePressed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPausePressed:
     m_PersistentCalls:
       m_Calls: []
   OnShiftPressed:

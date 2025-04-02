@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1482941963062402048}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.507954, y: -2.4993682, z: -1.4012134}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49,3 +49,5 @@ MonoBehaviour:
   cameraMatA: {fileID: 2100000, guid: b03dc075f4785f440a26ab638de97f09, type: 2}
   cameraMatB: {fileID: 2100000, guid: c6263ad97e4b6b642b6e606e49d4380f, type: 2}
   currentTimeText: {fileID: 0}
+  dashCooldownTime: {fileID: 0}
+  player: {fileID: 0}

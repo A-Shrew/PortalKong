@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI; // Assign the UI panel in the Inspector
-    public InputManager inputManager; // Reference to InputManager script
     public Player playerScript; // Reference to Player script
 
     private bool isPaused = false;
@@ -33,7 +32,6 @@ public class PauseMenu : MonoBehaviour
 
         // Re-enable player script
         if (playerScript != null) playerScript.enabled = true;
-        if (inputManager != null) inputManager.enabled = true;
 
         // Lock cursor for gameplay
         Cursor.lockState = CursorLockMode.Locked;
@@ -48,7 +46,7 @@ public class PauseMenu : MonoBehaviour
 
         // Disable player script
         if (playerScript != null) playerScript.enabled = false;
-        if (inputManager != null) inputManager.enabled = false;
+        
 
         // Unlock cursor for menu navigation
         Cursor.lockState = CursorLockMode.None;

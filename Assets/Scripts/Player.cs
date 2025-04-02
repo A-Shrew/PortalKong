@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float dash;
     [SerializeField] private float dashCooldown;
     [SerializeField] private float portalCooldown;
+    [SerializeField] private float slowTimeCooldown;
 
     [Header("Player Physics")]
     [SerializeField] private float extraGravity;
@@ -40,15 +38,13 @@ public class Player : MonoBehaviour
 
     //Player Stuff
     public Rigidbody rb;
-    private float jumpRay;
-    private float ladderRay;
-    private bool isGrounded;
     public bool canDash;
-    public float dashTimer;
+    public bool canSlowTime;
+    private bool isGrounded;
     private bool canShootPortal;
     private bool hasDoubleJump;
-    private bool canLook = true;
-    public TMP_Text dashText;
+    private float jumpRay;
+    private float ladderRay;
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -60,6 +56,7 @@ public class Player : MonoBehaviour
         isGrounded = true;
         canDash = true;
         canShootPortal = true;
+        canSlowTime = true;
     }
 
     // FixedUpdate is called every fixed framerate frame
@@ -95,8 +92,6 @@ public class Player : MonoBehaviour
     // Changes camera and player rotation from mouse movements
     private void Look(Vector2 lookInput)
     {
-        if (!canLook) return;
-
         horizontalLook += lookInput.x * mouseSense;
         verticalLook -= lookInput.y * mouseSense;
         verticalLook = (verticalLook + 180) % 360 - 180;
@@ -104,11 +99,6 @@ public class Player : MonoBehaviour
 
         rb.MoveRotation(Quaternion.Euler(Vector3.up * horizontalLook));
         mainCam.transform.localEulerAngles = Vector3.right * verticalLook;
-    }
-
-    public void SetCanLook(bool value)
-    {
-        canLook = value;
     }
 
     // Moves the player by a constant force ignoring its mass upwards if grounded or if the player has a double jump
@@ -143,21 +133,9 @@ public class Player : MonoBehaviour
     {
         canDash = false;
 
-        if (dashText != null)
-        {
-            dashText.color = Color.red;  
-            dashText.text = "Dash: Cooldown"; 
-        }
-
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
-
-        if (dashText != null)
-        {
-            dashText.color = Color.white; 
-            dashText.text = "Dash: Ready";
-        }
     }
 
     // Extra physics calculations for player movement
@@ -213,6 +191,7 @@ public class Player : MonoBehaviour
         inputManager.OnSpacePressed.AddListener(Jump);
         inputManager.OnShiftPressed.AddListener(Dash);
         inputManager.OnMousePressed.AddListener(ShootPortal);
+        inputManager.OnPausePressed.AddListener(SlowTime);
     }
 
     // Shoots the A portal and calls the PortalManager script SpawnPortalA function if it hits a portal wall
@@ -264,6 +243,28 @@ public class Player : MonoBehaviour
         rb.linearVelocity = newRotation * (velocity.magnitude * Vector3.forward);
     }
 
+    private void SlowTime()
+    {
+        if (canSlowTime)
+        {
+            Time.timeScale = 0.5f;
+            StartCoroutine(SlowTimeCooldown());
+        }
+    }
+
+    private IEnumerator SlowTimeCooldown()
+    {
+        canSlowTime = false;
+
+        yield return new WaitForSeconds(2f);
+
+        Time.timeScale = 1f;
+
+        yield return new WaitForSeconds(slowTimeCooldown);
+
+        canSlowTime = true;
+    }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -273,6 +274,7 @@ public class Player : MonoBehaviour
             GameManager.instance.PlayerDies();
         }
     }
+
     public void TakeKnockback(Vector3 direction,float force)
     {
         rb.AddForce(force * direction,ForceMode.Impulse);
