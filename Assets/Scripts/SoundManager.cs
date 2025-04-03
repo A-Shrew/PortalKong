@@ -6,7 +6,8 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
 
     [SerializeField] private SoundGroup[] soundGroups;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource soundfxSource;
     private Dictionary<string, List<AudioClip>> soundLibrary;
 
     [System.Serializable]
@@ -18,8 +19,10 @@ public class SoundManager : MonoBehaviour
 
     void Awake()
     {
+        musicSource.volume = PlayerPrefs.GetFloat("musicVolume");
+        soundfxSource.volume = PlayerPrefs.GetFloat("soundfxVolume");
         InitializeLibrary();
-        PlayAudioClip("BackgroundMusic");
+        PlayMusic("BackgroundMusic");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -58,12 +61,20 @@ public class SoundManager : MonoBehaviour
         return null;
     }
 
+    public void PlayMusic(string name)
+    {
+        AudioClip audioClip = GetRandomAudio(name);
+        if (audioClip != null)
+        {
+            musicSource.PlayOneShot(audioClip);
+        }
+    }
     public void PlayAudioClip(string name)
     {
         AudioClip audioClip = GetRandomAudio(name);
-        if (audioClip != null) 
+        if (audioClip != null)
         {
-            audioSource.PlayOneShot(audioClip);
+            soundfxSource.PlayOneShot(audioClip);
         }
     }
 }

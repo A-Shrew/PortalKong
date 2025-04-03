@@ -217,7 +217,7 @@ public class Player : MonoBehaviour
                     Instantiate(particlesB, hits[i].transform);
                     StartCoroutine(PortalCooldown());
                 }
-                SoundManager.instance.PlayAudioClip("PortalGunSound");
+                SoundManager.instance.PlayAudioClip("ShootPortalGun");
                 break;
             }
         }

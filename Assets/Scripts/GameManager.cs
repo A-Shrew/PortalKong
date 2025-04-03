@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
         }
         timerActive = true;
         currentTime = 0;
+
+
     }
 
     // Update is called every frame

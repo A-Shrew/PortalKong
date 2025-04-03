@@ -48,19 +48,21 @@ public class MenuManager: MonoBehaviour
         PlayerPrefs.SetInt("level", level + 1);
         if (PlayerPrefs.GetInt("level") == 1)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             SceneManager.LoadScene("LevelOneScene");
         }
         else if (PlayerPrefs.GetInt("level") == 2)
         {
-            SceneManager.LoadScene("LevelTwoScene");
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            SceneManager.LoadScene("LevelTwoScene");  
         }
         else
         {
             PlayerPrefs.SetInt("level", 0);
-            SceneManager.LoadScene("MainMenu");
+            Menu();
         }
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     public void TutorialMenu()

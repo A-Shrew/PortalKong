@@ -27,11 +27,11 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/LevelOneScene.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/LevelTwoScene.unity
+  - m_enabled: 1
     m_path: Assets/Scenes/TutorialScene.unity
   - m_enabled: 1
     m_path: Assets/Scenes/DeathMenu.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/LevelThreeScene.unity
   - m_enabled: 1
     m_path: Assets/Scenes/VictoryMenu.unity
   m_ScriptingDefines: []
