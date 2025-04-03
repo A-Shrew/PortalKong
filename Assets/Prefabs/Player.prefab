@@ -69,8 +69,8 @@ MonoBehaviour:
   slowTimeCooldown: 5
   extraGravity: 25
   airDrag: 0.05
-  airMultiplier: 1
-  mouseSense: 5
+  airMultiplier: 0.9
+  mouseSense: 3
   rotationSmoothTime: 0
   rb: {fileID: 0}
   canDash: 0
